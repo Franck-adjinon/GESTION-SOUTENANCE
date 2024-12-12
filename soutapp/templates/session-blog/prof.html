@@ -1,0 +1,114 @@
+{% extends 'session-templates/base.html' %}
+{% load static %}
+
+
+{% block active-prof %}
+<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
+</span>
+{% endblock %}
+
+{% block active-prof-mobile %}
+<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
+</span>
+{% endblock %}
+
+{% block Page-title %}
+SOUTAPP-PROFESSEURS
+{% endblock %}
+
+{% block search-input %}
+{% endblock %}
+
+{% block content %}
+<div class="section search-result-wrap">
+    <div class="container">
+
+        <div class="row posts-entry">
+            <div class="col-lg-12">
+
+                <div class="blog-entry d-flex blog-entry-search-item">
+                    <a href="{% url 'prof_detail' %}" class="img-link me-4">
+                        <img src="{% static 'blog-static/images/person_1.jpg' %}" alt="Image" class="img-fluid">
+                    </a>
+                    <div>
+                        <h2><a href="{% url 'prof_detail' %}">Mr ADJINON Franck Yao</a></h2>
+                        <p>
+                            Professeur de Cybersécurité.
+                        </p>
+                        <p><a href="{% url 'prof_detail' %}" class="btn btn-sm btn-outline-primary">Voir</a></p>
+                    </div>
+                </div>
+
+                <div class="blog-entry d-flex blog-entry-search-item">
+                    <a href="{% url 'prof_detail' %}" class="img-link me-4">
+                        <img src="{% static 'blog-static/images/img_6_sq.jpg' %}" alt="Image" class="img-fluid">
+                    </a>
+                    <div>
+                        <h2><a href="{% url 'prof_detail' %}">Mme Rodaline</a></h2>
+                        <p>
+                            Professeur de Cybersécurité, cuisine, esthétique ....
+                        </p>
+                        <p><a href="{% url 'prof_detail' %}" class="btn btn-sm btn-outline-primary">Voir</a></p>
+                    </div>
+                </div>
+
+                <div class="blog-entry d-flex blog-entry-search-item">
+                    <a href="{% url 'prof_detail' %}" class="img-link me-4">
+                        <img src="{% static 'blog-static/images/person_3.jpg' %}" alt="Image" class="img-fluid">
+                    </a>
+                    <div>
+                        <h2><a href="{% url 'prof_detail' %}">Mr NYAKPO Guillaume</a></h2>
+                        <p>
+                            Professeur de Cybersécurité.
+                        </p>
+                        <p><a href="{% url 'prof_detail' %}" class="btn btn-sm btn-outline-primary">Voir</a></p>
+                    </div>
+                </div>
+
+                <div class="blog-entry d-flex blog-entry-search-item">
+                    <a href="{% url 'prof_detail' %}" class="img-link me-4">
+                        <img src="{% static 'blog-static/images/person_4.jpg' %}" alt="Image" class="img-fluid">
+                    </a>
+                    <div>
+                        <h2><a href="{% url 'prof_detail' %}">Mr WARALIOUA Magnouréwa</a></h2>
+                        <p>
+                            Professeur de Cybersécurité.Professeur de Cybersécurité.Professeur de Cybersécurité.Professeur de Cybersécurité.
+                        </p>
+                        <p><a href="{% url 'prof_detail' %}" class="btn btn-sm btn-outline-primary">Voir</a></p>
+                    </div>
+                </div>
+
+                <div class="row text-start pt-5 border-top">
+                    <div class="col-md-12">
+                        <div class="custom-pagination">
+                            <span>1</span>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <span>...</span>
+                            <a href="#">15</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="col-lg-1 sidebar"> 
+    
+            </div>
+            -->
+        </div>
+    </div>
+</div>
+
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

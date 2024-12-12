@@ -1,0 +1,347 @@
+{% extends 'session-templates/base.html' %}
+{% load static %}
+
+{% block active-next %}
+<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
+</span>
+{% endblock %}
+
+{% block active-next-mobile %}
+<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
+</span>
+{% endblock %}
+
+{% block Page-title %}
+SOUTAPP-BLOG
+{% endblock %}
+
+{% block search-input %}
+{% endblock %}
+
+{% block content %}
+<div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('{% static "blog-static/images/hero_5.jpg" %}')">
+  <div class="container">
+    <div class="row same-height justify-content-center">
+      <div class="col-md-6">
+        <div class="post-entry text-center">
+          <h1 class="mb-4">Ne présumez pas que vos données utilisateur dans le cloud sont en sécurité</h1>
+          <div class="post-meta align-items-center text-center">
+            <figure class="author-figure mb-0 me-3 d-inline-block"><img
+                src="{% static 'blog-static/images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
+            <span class="d-inline-block mt-1">Par Carl Atkinson</span>
+            <span>&nbsp;-&nbsp; 10 février 2019</span>
+          </div>
+          <div class="post-meta align-items-center text-center"> 
+            <span class="d-inline-block mt-1">14H30</span>
+            <span>&nbsp;-&nbsp; 16H30</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="row blog-entries element-animate">
+      <div class="col-md-12 col-lg-8 main-content">
+        <div class="post-content-body">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium nam quas inventore, ut iure iste
+            modi eos adipisci ad ea itaque labore earum autem nobis et numquam, minima eius. Nam eius, non unde ut aut
+            sunt eveniet rerum repellendus porro.</p>
+          <p>Sint ab voluptates itaque, ipsum porro qui obcaecati cumque quas sit vel. Voluptatum provident id quis
+            quo. Eveniet maiores perferendis officia veniam est laborum, expedita fuga doloribus natus repellendus
+            dolorem ab similique sint eius cupiditate necessitatibus, magni nesciunt ex eos.</p>
+          <p>Quis eius aspernatur, eaque culpa cumque reiciendis, nobis at earum assumenda similique ut? Aperiam vel
+            aut, ex exercitationem eos consequuntur eaque culpa totam, deserunt, aspernatur quae eveniet hic provident
+            ullam tempora error repudiandae sapiente illum rerum itaque voluptatem. Commodi, sequi.</p>
+          <div class="row my-4">
+            <div class="col-md-6 mb-4">
+              <img src="{% static 'blog-static/images/img_3_horizontal.jpg' %}" alt="Image 3" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6 mb-4">
+              <img src="{% static 'blog-static/images/hero_1.jpg' %}" alt="Image 1" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6 mb-4">
+              <img src="{% static 'blog-static/images/img_2_horizontal.jpg' %}" alt="Image 2" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6 mb-4">
+              <img src="{% static 'blog-static/images/img_3_horizontal.jpg' %}" alt="Image 3" class="img-fluid rounded">
+            </div>
+          </div>
+          <p>Quibusdam autem, quas molestias recusandae aperiam molestiae modi qui ipsam vel. Placeat tenetur
+            veritatis tempore quos impedit dicta, error autem, quae sint inventore ipsa quidem. Quo voluptate quisquam
+            reiciendis, minus, animi minima eum officia doloremque repellat eos, odio doloribus cum.</p>
+          <p>Temporibus quo dolore veritatis doloribus delectus dolores perspiciatis recusandae ducimus, nisi quod,
+            incidunt ut quaerat, magnam cupiditate. Aut, laboriosam magnam, nobis dolore fugiat impedit necessitatibus
+            nisi cupiditate, quas repellat itaque molestias sit libero voluptas eveniet omnis illo ullam dolorem
+            minima.</p>
+          <p>Porro amet accusantium libero fugit totam, deserunt ipsa, dolorem, vero expedita illo similique saepe
+            nisi deleniti. Cumque, laboriosam, porro! Facilis voluptatem sequi nulla quidem, provident eius quos
+            pariatur maxime sapiente illo nostrum quibusdam aliquid fugiat! Earum quod fuga id officia.</p>
+          <p>Illo magnam at dolore ad enim fugiat ut maxime facilis autem, nulla cumque quis commodi eos nisi unde
+            soluta, ipsa eius aspernatur sint atque! Nihil, eveniet illo ea, mollitia fuga accusamus dolor dolorem
+            perspiciatis rerum hic, consectetur error rem aspernatur!</p>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus magni explicabo id molestiae, minima
+            quas assumenda consectetur, nobis neque rem, incidunt quam tempore perferendis provident obcaecati
+            sapiente, animi vel expedita omnis quae ipsa! Obcaecati eligendi sed odio labore vero reiciendis facere
+            accusamus molestias eaque impedit, consequuntur quae fuga vitae fugit?</p>
+        </div>
+
+
+        <!-- Jury section -->
+        <div class="pt-5 comment-wrap">
+          <h3 class="mb-5 heading">Menbres du Jury</h3>
+          <ul class="comment-list">
+
+            <li class="comment">
+              <div class="vcard">
+                <a href="{% url 'prof_detail' %}"><img src="{% static 'blog-static/images/person_5.jpg' %}" alt="Image placeholder"></a>
+              </div>
+              <div class="comment-body">
+                <h3>Elena Doe</h3> 
+                <p>
+                  Directeur de Stage
+                </p>
+              </div>
+            </li>
+
+            <li class="comment">
+              <div class="vcard">
+                <a href="{% url 'prof_detail' %}"><img src="{% static 'blog-static/images/person_2.jpg' %}" alt="Image placeholder"></a>
+              </div>
+              <div class="comment-body">
+                <h3>Anna Doe</h3>
+                <p>
+                  Directeur de Stage
+                </p>
+              </div>
+            </li>
+
+            <li class="comment">
+              <div class="vcard">
+                <a href="{% url 'prof_detail' %}"><img src="{% static 'blog-static/images/person_4.jpg' %}" alt="Image placeholder"></a>
+              </div>
+              <div class="comment-body">
+                <h3>Jo Doe</h3>
+                <p>
+                  Directeur de Stage
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+        <!-- Félicitations des professeurs -->
+        <div class="pt-5 comment-wrap">
+          <h3 class="mb-5 heading">Félicitations des Menbres</h3>
+          <ul class="comment-list">
+            <li class="comment">
+              <div class="vcard">
+                <img src="{% static 'blog-static/images/person_5.jpg' %}" alt="Image placeholder">
+              </div>
+              <div class="comment-body">
+                <h3>Elena Doe</h3> 
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
+                  ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
+                  impedit necessitatibus, nihil?</p>
+              </div>
+            </li>
+
+            <li class="comment">
+              <div class="vcard">
+                <img src="{% static 'blog-static/images/person_2.jpg' %}" alt="Image placeholder">
+              </div>
+              <div class="comment-body">
+                <h3>Anna Doe</h3> 
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem,
+                  eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus,
+                  nihil?
+                </p>
+              </div>
+            </li>
+
+            <li class="comment">
+              <div class="vcard">
+                <img src="{% static 'blog-static/images/person_4.jpg' %}" alt="Image placeholder">
+              </div>
+              <div class="comment-body">
+                <h3>Jo Doe</h3> 
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
+                  ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
+                  impedit necessitatibus, nihil?
+                </p>
+              </div>
+            </li>
+          </ul>
+          <!-- END comment-list -->
+        </div>
+      </div>
+
+      <!-- END main-content -->
+      <!-- Start sidebar -->
+      <div class="col-md-12 col-lg-4 sidebar">
+        <div class="sidebar-box rounded">
+          <div class="bio text-left">
+            <img src="{% static 'blog-static/images/person_1.jpg' %}" alt="Image Placeholder" class="img-fluid mb-3 rounded">
+            <div class="bio-body">
+              <h2>Carl Atkinson</h2>
+              <p class="mb-4">
+                Étudiant en Comptabilité et contrôle Audits
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <!-- END sidebar -->
+    </div>
+  </div>
+</section>
+
+
+<!-- Start posts-entry -->
+<section class="section posts-entry posts-entry-sm bg-light">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-uppercase text-black">Plus de Soutenances</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-3">
+        <div class="blog-entry">
+          <a href="{% url 'article_detail' %}" class="img-link">
+            <img src="{% static 'blog-static/images/img_1_horizontal.jpg' %}" alt="Image" class="img-fluid">
+          </a>
+          <span class="date">Apr. 14th, 2022</span>
+          <h2><a href="{% url 'article_detail' %}">Vous pensiez aimer Python ? Attendez de découvrir Rust</a></h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <p><a href="{% url 'article_detail' %}" class="read-more">Lire</a></p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="blog-entry">
+          <a href="{% url 'article_detail' %}" class="img-link">
+            <img src="{% static 'blog-static/images/img_2_horizontal.jpg' %}" alt="Image" class="img-fluid">
+          </a>
+          <span class="date">Apr. 14th, 2022</span>
+          <h2><a href="{% url 'article_detail' %}">Vous pensiez aimer Python ? Attendez de découvrir Rust</a></h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <p><a href="{% url 'article_detail' %}" class="read-more">Lire</a></p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="blog-entry">
+          <a href="{% url 'article_detail' %}" class="img-link">
+            <img src="{% static 'blog-static/images/img_3_horizontal.jpg' %}" alt="Image" class="img-fluid">
+          </a>
+          <span class="date">Apr. 14th, 2022</span>
+          <h2><a href="{% url 'article_detail' %}">Vous pensiez aimer Python ? Attendez de découvrir Rust</a></h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <p><a href="{% url 'article_detail' %}" class="read-more">Lire</a></p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="blog-entry">
+          <a href="{% url 'article_detail' %}" class="img-link">
+            <img src="{% static 'blog-static/images/img_4_horizontal.jpg' %}" alt="Image" class="img-fluid">
+          </a>
+          <span class="date">Apr. 14th, 2022</span>
+          <h2><a href="{% url 'article_detail' %}">Vous pensiez aimer Python ? Attendez de découvrir Rust</a></h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <p><a href="{% url 'article_detail' %}" class="read-more">Lire</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End posts-entry -->
+<!-- Le Footer -->
+<!--
+<footer class="site-footer">
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="widget">
+          <h3 class="mb-4">Recent Post Entry</h3>
+          <div class="post-entry-footer">
+            <ul>
+              <li>
+                <a href="">
+                  <img src="{% static 'blog-static/images/img_1_sq.jpg' %}" alt="Image placeholder"
+                    class="me-4 rounded">
+                  <div class="text">
+                    <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                    <div class="post-meta">
+                      <span class="mr-2">March 15, 2018 </span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <img src="{% static 'blog-static/images/img_2_sq.jpg' %}" alt="Image placeholder"
+                    class="me-4 rounded">
+                  <div class="text">
+                    <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                    <div class="post-meta">
+                      <span class="mr-2">March 15, 2018 </span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <img src="{% static 'blog-static/images/img_3_sq.jpg' %}" alt="Image placeholder"
+                    class="me-4 rounded">
+                  <div class="text">
+                    <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                    <div class="post-meta">
+                      <span class="mr-2">March 15, 2018 </span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>  /.widget  
+      </div>  /.col-lg-4  
+    </div>  /.row  
+    -->
+
+    <!--
+    <div class="row mt-5">
+      <div class="col-12 text-center">
+        
+              **==========
+              NOTE: 
+              Please don't remove this copyright link unless you buy the license here https://untree.co/license/  
+              **==========
+            
+
+        <p>Copyright &copy;
+          <script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love
+          by <a href="https://untree.co">Untree.co</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
+          License information: https://untree.co/license/  
+        </p>
+      </div>
+    </div>
+  </div>  /.container  
+  
+</footer>  /.site-footer -->
+
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
