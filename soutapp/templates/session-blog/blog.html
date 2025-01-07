@@ -1,15 +1,36 @@
 {% extends 'session-templates/base.html' %}
 {% load static %}
 
+
 {% block active-next %}
-<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
-</span>
+  {% if sout %}
+          <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
+          </span>
+  {% endif %}
 {% endblock %}
 
 {% block active-next-mobile %}
-<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
-</span>
+  {% if sout %}
+          <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
+          </span>
+  {% endif %}
 {% endblock %}
+
+{% block active-past %}
+  {% if sout_finish %}
+          <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
+          </span>
+  {% endif %}
+{% endblock %}
+
+{% block active-past-mobile %}
+  {% if sout_finish %}
+          <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
+          </span>
+  {% endif %}
+{% endblock %}
+
+
 
 {% block Page-title %}
 SOUTAPP-BLOG
@@ -21,54 +42,55 @@ SOUTAPP-BLOG
   
       <div class="row posts-entry">
         <div class="col-lg-12">
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="{% url 'article_detail' %}" class="img-link me-4">
-              <img src="{% static 'blog-static/images/img_1_sq.jpg' %}" alt="Image" class="img-fluid">
-            </a>
-            <div>
-              <span class="date">14 avril 2022 &bullet; <a href="{% url 'article_detail' %}">CCA</a>&bullet; Par ADJINON Franck Yao</span>
-              <h2><a href="{% url 'article_detail' %}">Vous pensiez aimer Python ? Attendez de découvrir Rust</a></h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-                Lorem ipsum dolorsit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-              </p>
-              <p><a href="{% url 'article_detail' %}" class="btn btn-sm btn-outline-primary">Lire</a></p>
-            </div>
-          </div>
+          {% if sout %}
+            {% for st in sout %}
+              <div class="blog-entry d-flex blog-entry-search-item">
+                <a href="{% url 'sout_detail' st.id_sout %}" class="img-link me-4">
+                  <img src="{{ st.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid">
+                </a>
+                <div>
+                  <span class="date">{{ st.Date_sout }} &bullet; <a href="{% url 'sout_detail' st.id_sout %}">{{ st.id_etudiant.id_filiere.designation }}</a>&bullet; Par {{ st.id_etudiant.nom_etu }} {{ st.id_etudiant.prenom_etu }}</span>
+                  <h2><a href="{% url 'sout_detail' st.id_sout %}">{{ st.theme }}</a></h2>
+                  <p>
+                    {{ st.lieu }} 
+                  </p>
+                  <p> 
+                    De {{ st.Heure_deb }} 
+                  </p>
+                  <p> 
+                    A {{ st.Heure_fin }}
+                  </p>
+
+                  <p><a href="{% url 'sout_detail' st.id_sout %}" class="btn btn-sm btn-outline-primary">Lire</a></p>
+                </div>
+              </div>
+            {% endfor %}
+
+            
+          {% endif %}
+
+
+          <!-- Pour les Soutenances Terminer -->
+          {% if sout_finish %}
+            {% for st in sout_finish %}
+              <div class="blog-entry d-flex blog-entry-search-item">
+                <a href="{% url 'sout_detail_finish' st.id_sout %}" class="img-link me-4">
+                  <img src="{{ st.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid">
+                </a>
+                <div>
+                  <span class="date">{{ st.Date_sout }} &bullet; <a href="{% url 'sout_detail_finish' st.id_sout %}">{{ st.id_etudiant.id_filiere.designation }}</a>&bullet; Par {{ st.id_etudiant.nom_etu }} {{ st.id_etudiant.prenom_etu }}</span>
+                  <h2><a href="{% url 'sout_detail_finish' st.id_sout %}">{{ st.theme }}</a></h2>
+                  <p>
+                    Soutenance terminer
+                  </p>
+                  <p><a href="{% url 'sout_detail_finish' st.id_sout %}" class="btn btn-sm btn-outline-primary">Lire</a></p>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
   
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="{% url 'article_detail' %}" class="img-link me-4">
-              <img src="{% static 'blog-static/images/img_2_sq.jpg' %}" alt="Image" class="img-fluid">
-            </a>
-            <div>
-              <span class="date">Apr. 14th, 2022 &bullet; <a href="{% url 'article_detail' %}">Business</a>&bullet; Par LOVE Elena</span>
-              <h2><a href="{% url 'article_detail' %}">Thought you loved Python? Wait until you meet Rust</a></h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-              </p>
-              <p><a href="{% url 'article_detail' %}" class="btn btn-sm btn-outline-primary">Lire</a></p>
-            </div>
-          </div>
-  
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="{% url 'article_detail' %}" class="img-link me-4">
-              <img src="{% static 'blog-static/images/img_3_sq.jpg' %}" alt="Image" class="img-fluid">
-            </a>
-            <div>
-              <span class="date">Apr. 14th, 2022 &bullet; <a href="{% url 'article_detail' %}">Business</a> &bullet; Par ISRO Joe</span>
-              <h2><a href="{% url 'article_detail' %}">Vous pensiez aimer Python ? Attendez de découvrir Rus</a></h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.
-              </p>
-              <p><a href="{% url 'article_detail' %}" class="btn btn-sm btn-outline-primary">Lire</a></p>
-            </div>
-          </div>
-  
+          
+          <!--
           <div class="row text-start pt-5 border-top">
             <div class="col-md-12">
               <div class="custom-pagination">
@@ -81,6 +103,7 @@ SOUTAPP-BLOG
               </div>
             </div>
           </div>
+          -->
         </div>
         <!--
             <div class="col-lg-1 sidebar"> 

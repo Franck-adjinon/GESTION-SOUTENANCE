@@ -9,54 +9,69 @@ SOUTAPP-PROFILE
 {% endblock %}
 
 {% block content %}
-<form class="space-y-8 container m-auto divide-y divide-gray-200">
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="post">
+    {% csrf_token %}
     <div class="space-y-8 divide-y divide-gray-200">
         <div class="pt-8">
             <div>
                 <h3 class="text-lg leading-6 font-medium text-gray-900">Renseignements personnels</h3>
-                <p class="mt-1 text-sm text-gray-500">Vous pouvez modifier vos information</p>
+                <p class="mt-1 text-sm text-gray-500">Vous pouvez modifier vos informations</p>
             </div>
-            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                <div class="sm:col-span-3 mb-6">
-                    <label for="first-name" class="block text-sm font-medium text-gray-700"> Prénom </label>
-                    <div class="mt-1">
-                        <input type="text" name="first-name" id="first-name" autocomplete="given-name"
-                            class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
 
-                <div class="sm:col-span-3 mb-6">
-                    <label for="last-name" class="block text-sm font-medium text-gray-700"> Nom </label>
-                    <div class="mt-1">
-                        <input type="text" name="last-name" id="last-name" autocomplete="family-name"
-                            class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                </div>
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="ancien-last-name" class="block text-sm font-medium text-gray-700"> Ancien Nom </label>
+                            <div class="mt-1">
+                                <input type="text" name="last-name" disabled id="ancien-last-name" autocomplete="family-name" placeholder="{{ user_pre.nom_user }}"
+                                    class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
 
-                <div class="sm:col-span-4 mb-6">
-                    <label for="email" class="block text-sm font-medium text-gray-700"> Email </label>
-                    <div class="mt-1">
-                        <input id="email" name="email" type="email" autocomplete="email"
-                            class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                </div>
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="last-name" class="block text-sm font-medium text-gray-700"> {{ form.nom_user.label }} </label>
+                            {{ form.nom_user }}
+                        </div>
 
-                <div class="sm:col-span-4 mb-6">
-                    <label for="email" class="block text-sm font-medium text-gray-700"> Mots de Passe </label>
-                    <div class="mt-1">
-                        <input id="email" name="email" type="password" autocomplete="email"
-                            class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                </div>
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="first-name" class="block text-sm font-medium text-gray-700"> Ancien Prénom </label>
+                            <div class="mt-1">
+                                <input type="text" disabled name="first-name" id="first-name" autocomplete="given-name" placeholder="{{ user_pre.prenom_user }}"
+                                    class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
 
-                <div class="sm:col-span-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700"> Confirmer Mots de Passe </label>
-                    <div class="mt-1">
-                        <input id="email" name="email" type="password" autocomplete="email"
-                            class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="first-name" class="block text-sm font-medium text-gray-700"> {{ form.prenom_user.label }} </label>
+                            {{ form.prenom_user }}
+                        </div>
+
+                        <div class="sm:col-span-4 mb-6">
+                            <label for="email" class="block text-sm font-medium text-gray-700"> Ancienne Adresse </label>
+                            <div class="mt-1">
+                                <input id="email" name="email" disabled type="email" autocomplete="email"  placeholder="{{ user_pre.email }}"
+                                    class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-4 mb-6">
+                            <label for="email" class="block text-sm font-medium text-gray-700"> {{ form.email.label }} </label>
+                            {{ form.email }}
+                        </div>
+
+                        <div class="sm:col-span-4 mb-6">
+                            <label for="email" class="block text-sm font-medium text-gray-700"> Ancien Mots de Passe </label>
+                            <div class="mt-1">
+                                <input id="email" disabled name="email" type="password" autocomplete="email" placeholder="{{ user_pre.password }}"
+                                    class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-4 mb-6">
+                            <label for="email" class="block text-sm font-medium text-gray-700"> {{ form.password.label }} </label>
+                            {{ form.password }}
+                        </div>
+                    
                     </div>
-                </div>
-            </div>
         </div>
     </div>
 
