@@ -1,18 +1,16 @@
-from django.urls import path
-from . import views
-
-from .views import CustomLoginView
+#from .views import CustomLoginView
 from .views import logout_view
 from django.contrib.auth.views import LogoutView
-
 from django.conf import settings
 from django.conf.urls.static import static
-
+from . import views
+from django.contrib import admin
+from django.urls import path
 
 urlpatterns = [
-
+    
     # TODO: Affiche la page d'inscription
-    path('', views.index, name='index'), 
+    path('', views.dashbord, name='index'), 
     
     # TODO: Affiche l'accueil
     path('Tableau de Bord', views.dashbord, name='dashbord'),
@@ -41,19 +39,12 @@ urlpatterns = [
     # TODO: Affiche les professeurs
     path('prof', views.prof, name='prof'),
 
-    # TODO: Affiche la section profil 
-    path('user_profil', views.user_profil, name='user_profil'),
-
     # TODO: Affiche la page de connexion
-    path('connexion/', CustomLoginView.as_view(), name='login'),
+    #path('connexion/', CustomLoginView.as_view(), name='login'),
 
     # TODO: Affuche la page de déconnexion
-    path('deconnexion/', logout_view, name='logout'),
+    #path('deconnexion/', logout_view, name='logout'),
 
-    # TODO: Affiche les informations de l'utilisateur connecter
-    path('user_profil/<int:pk>', views.UserDetail.as_view(), name='user_profil'),
-    
-] 
-
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

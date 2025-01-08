@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
 
 class Professeur(models.Model):
     id_prof = models.AutoField(primary_key=True)
@@ -16,27 +14,6 @@ class Professeur(models.Model):
     def __str__(self):
         return f"{self.nom_prof} {self.prenom_prof}"
 
-class Utilisateur(models.Model):
-    id_user = models.AutoField(primary_key=True)
-    nom_user = models.CharField(max_length=50)
-    prenom_user = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=255)
-    last_login = models.DateTimeField(null=True, blank=True)  # Champ ajouté
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    # Ajout des attributs requis
-    @property
-    def is_authenticated(self):
-        return True
-
-    @property
-    def is_active(self):
-        return True
-
-    def __str__(self):
-        return f"{self.nom_user} {self.prenom_user}"
 
 class LienSociale(models.Model):
     id_lien = models.AutoField(primary_key=True)
@@ -62,7 +39,7 @@ class Message(models.Model):
     id_message = models.AutoField(primary_key=True)
     status = models.BooleanField(default=False)
     sujet = models.CharField(max_length=100)
-    email_user = models.EmailField(max_length=255, unique=True)
+    email_user = models.EmailField(max_length=255)
     message = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
 

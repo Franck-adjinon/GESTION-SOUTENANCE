@@ -30,6 +30,8 @@
   {% endif %}
 {% endblock %}
 
+{% block search-input %}
+{% endblock %}
 
 
 {% block Page-title %}
@@ -49,7 +51,7 @@ SOUTAPP-BLOG
                   <img src="{{ st.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid">
                 </a>
                 <div>
-                  <span class="date">{{ st.Date_sout }} &bullet; <a href="{% url 'sout_detail' st.id_sout %}">{{ st.id_etudiant.id_filiere.designation }}</a>&bullet; Par {{ st.id_etudiant.nom_etu }} {{ st.id_etudiant.prenom_etu }}</span>
+                  <span class="date">{{ st.Date_sout }} &bullet; <a href="{% url 'sout_detail' st.id_sout %}">{{ st.id_etudiant.id_filiere.designation }}</a> &bullet; Par {{ st.id_etudiant.nom_etu }} {{ st.id_etudiant.prenom_etu }}</span>
                   <h2><a href="{% url 'sout_detail' st.id_sout %}">{{ st.theme }}</a></h2>
                   <p>
                     {{ st.lieu }} 
@@ -78,7 +80,7 @@ SOUTAPP-BLOG
                   <img src="{{ st.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid">
                 </a>
                 <div>
-                  <span class="date">{{ st.Date_sout }} &bullet; <a href="{% url 'sout_detail_finish' st.id_sout %}">{{ st.id_etudiant.id_filiere.designation }}</a>&bullet; Par {{ st.id_etudiant.nom_etu }} {{ st.id_etudiant.prenom_etu }}</span>
+                  <span class="date">{{ st.Date_sout }} &bullet; <a href="{% url 'sout_detail_finish' st.id_sout %}">{{ st.id_etudiant.id_filiere.designation }}</a> &bullet; Par {{ st.id_etudiant.nom_etu }} {{ st.id_etudiant.prenom_etu }}</span>
                   <h2><a href="{% url 'sout_detail_finish' st.id_sout %}">{{ st.theme }}</a></h2>
                   <p>
                     Soutenance terminer

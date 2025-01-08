@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yl-%&kbtlye+violjk7uf*$teyngjf0ih#+!_08eb&o7#&x(%w'
+SECRET_KEY = 'django-insecure-!7vblbgdaa2c4ajxd7r9w$*f@&rr^4@a4)cv2#fap(ownik5*#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -56,8 +56,8 @@ ROOT_URLCONF = 'soutappproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR], 
-        'APP_DIRS': True, 
+        'DIRS': [BASE_DIR],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -102,16 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Redirection des users non connectés
-LOGIN_URL = 'connexion/'
-LOGOUT_REDIRECT_URL = 'login'
-
-AUTHENTICATION_BACKENDS = [
-    'soutapp.auth_backend.CustomAuthBackend',  # Ton backend personnalisé
-]
-
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -133,6 +123,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "soutappproject/static"),  # Chemin vers ton dossier static
 ]
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -141,3 +132,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Gestion des fichiers médias
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

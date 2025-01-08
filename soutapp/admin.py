@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Photo, Professeur, Utilisateur, LienSociale, Message, Filiere, Etudiant, Soutenance, Rapport, Superviser, Apprecier, SoutenanceImage
+from .models import Photo, Professeur, LienSociale, Message, Filiere, Etudiant, Soutenance, Rapport, Superviser, Apprecier, SoutenanceImage
 
 
 @admin.register(Professeur)
@@ -61,8 +61,8 @@ class ProfesseurAdmin(admin.ModelAdmin):
 
 @admin.register(Etudiant)
 class EtudiantAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'eml', 'img', 'tel', 'create_date')  # Affiche ces colonnes dans la liste
-    search_fields = ('nom_prof','prenom_prof',)             # Permet de rechercher par titre
+    list_display = ('full_name', 'eml', 'img', 'tel', 'id_filiere', 'create_date')  # Affiche ces colonnes dans la liste
+    search_fields = ('nom_etu','prenom_etu',)             # Permet de rechercher par nom et prénom
     list_filter = ["created_at"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
@@ -103,9 +103,9 @@ class EtudiantAdmin(admin.ModelAdmin):
 
 @admin.register(Rapport)
 class RapportAdmin(admin.ModelAdmin):
-    list_display = ('titre', 'sommaire', 'contenu', 'create_date')  # Affiche ces colonnes dans la liste
-    search_fields = ('titre',)             # Permet de rechercher par titre
-    list_filter = ["created_at"]                 # ajout de filtrage à l’aide de l’attribut list_filter
+    list_display = ('id_sout', 'titre', 'create_date')  # Affiche ces colonnes dans la liste
+    search_fields = ('id_sout','titre')             # Permet de rechercher par titre etsoutenance
+    list_filter = ["id_sout", "created_at"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
         ordering="created_at",
@@ -113,53 +113,13 @@ class RapportAdmin(admin.ModelAdmin):
     )
     def create_date(self, obj):
         return obj.created_at
-
-
-@admin.register(Utilisateur)
-class UtilisateurAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'eml', 'psd', 'create_date', 'update_date')  # Affiche ces colonnes dans la liste
-    search_fields = ('nom_user','prenom_user',)             # Permet de rechercher par titre
-    
-    @admin.display(
-        ordering="nom_user",
-        description="Nom - Prenom",
-    )
-    def full_name(self, obj):
-        return obj.nom_user + " " + obj.prenom_user
-    
-    @admin.display(
-        ordering="email",
-        description="Email",
-    )
-    def eml(self, obj):
-        return obj.email
-    
-    @admin.display(
-        ordering="password",
-        description="Mots de passe",
-    )
-    def psd(self, obj):
-        return obj.password
-    
-    @admin.display(
-        ordering="created_at",
-        description="Date Ajout",
-    )
-    def create_date(self, obj):
-        return obj.created_at
-    
-    @admin.display(
-        ordering="updated_at",
-        description="Mis à jour",
-    )
-    def update_date(self, obj):
-        return obj.updated_at
 
 
 @admin.register(LienSociale)
 class LienSocialeAdmin(admin.ModelAdmin):
     list_display = ('designation', 'lien', 'create_date', 'id_prof')  # Affiche ces colonnes dans la liste
     search_fields = ('designation',)             # Permet de rechercher par titre
+    list_filter = ["id_prof"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
         ordering="created_at",
@@ -172,7 +132,7 @@ class LienSocialeAdmin(admin.ModelAdmin):
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('titre', 'image', 'description', 'create_date')  # Affiche ces colonnes dans la liste
-    search_fields = ('nom_prof','prenom_prof',)             # Permet de rechercher par titre
+    search_fields = ('titre',)             # Permet de rechercher par titre
     list_filter = ["created_at"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
@@ -186,8 +146,8 @@ class PhotoAdmin(admin.ModelAdmin):
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display = ('status', 'sujet', 'eml', 'message', 'create_date')  # Affiche ces colonnes dans la liste
-    search_fields = ('nom_prof','prenom_prof',)             # Permet de rechercher par titre
-    list_filter = ["created_at"]                 # ajout de filtrage à l’aide de l’attribut list_filter
+    search_fields = ('email_user',)             # Permet de rechercher par email
+    list_filter = ["created_at", "status"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
         ordering="email_user",
@@ -222,7 +182,7 @@ class FiliereAdmin(admin.ModelAdmin):
 class SoutenanceAdmin(admin.ModelAdmin):
     list_display = ('theme', 'HD', 'HF', 'dts', 'lieu', 'is_finish', 'create_date', 'id_etudiant')  # Affiche ces colonnes dans la liste
     search_fields = ('theme',)             # Permet de rechercher par titre
-    list_filter = ["created_at"]                 # ajout de filtrage à l’aide de l’attribut list_filter
+    list_filter = ["created_at", "is_finish"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
         ordering="Heure_deb",
@@ -256,7 +216,7 @@ class SoutenanceAdmin(admin.ModelAdmin):
 @admin.register(Superviser)
 class SuperviserAdmin(admin.ModelAdmin):
     list_display = ('id_sout', 'id_prof', 'role', 'create_date')  # Affiche ces colonnes dans la liste
-    search_fields = ('id_sout',)             # Permet de rechercher par titre
+    search_fields = ('id_sout',)             # Permet de rechercher par soutenance
     list_filter = ["id_sout"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
@@ -270,6 +230,7 @@ class SuperviserAdmin(admin.ModelAdmin):
 @admin.register(Apprecier)
 class ApprecierAdmin(admin.ModelAdmin):
     list_display = ('id_sout', 'id_prof', 'appreciation', 'create_date')  # Affiche ces colonnes dans la liste
+    list_filter = ["id_sout"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
         ordering="create_at",
@@ -282,6 +243,7 @@ class ApprecierAdmin(admin.ModelAdmin):
 @admin.register(SoutenanceImage)
 class SoutenanceImageAdmin(admin.ModelAdmin):
     list_display = ('id_sout', 'id_photo', 'pour', 'create_date')  # Affiche ces colonnes dans la liste
+    list_filter = ["id_sout"]                 # ajout de filtrage à l’aide de l’attribut list_filter
     
     @admin.display(
         ordering="created_at",
