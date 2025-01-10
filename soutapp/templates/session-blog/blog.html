@@ -48,7 +48,7 @@ SOUTAPP-BLOG
             {% for st in sout %}
               <div class="blog-entry d-flex blog-entry-search-item">
                 <a href="{% url 'sout_detail' st.id_sout %}" class="img-link me-4">
-                  <img src="{{ st.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid">
+                  <img src="{{ st.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid" class="lazy">
                 </a>
                 <div>
                   <span class="date">{{ st.Date_sout }} &bullet; <a href="{% url 'sout_detail' st.id_sout %}">{{ st.id_etudiant.id_filiere.designation }}</a> &bullet; Par {{ st.id_etudiant.nom_etu }} {{ st.id_etudiant.prenom_etu }}</span>
@@ -77,7 +77,7 @@ SOUTAPP-BLOG
             {% for st in sout_finish %}
               <div class="blog-entry d-flex blog-entry-search-item">
                 <a href="{% url 'sout_detail_finish' st.id_sout %}" class="img-link me-4">
-                  <img src="{{ st.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid">
+                  <img src="{{ st.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid" class="lazy">
                 </a>
                 <div>
                   <span class="date">{{ st.Date_sout }} &bullet; <a href="{% url 'sout_detail_finish' st.id_sout %}">{{ st.id_etudiant.id_filiere.designation }}</a> &bullet; Par {{ st.id_etudiant.nom_etu }} {{ st.id_etudiant.prenom_etu }}</span>

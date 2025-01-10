@@ -1,3 +1,6 @@
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
 from django.db import models
 
 class Professeur(models.Model):
@@ -10,6 +13,24 @@ class Professeur(models.Model):
     telephone_prof = models.CharField(max_length=50)
     email_prof = models.EmailField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def save(self, *args, **kwargs):
+        if self.image_prof:
+            try:
+                img = Image.open(self.image_prof)
+                img = img.convert('RGB')  # Assurer compatibilité
+                img_io = BytesIO()
+                
+                # Toujours compresser l'image
+                img.save(img_io, format='JPEG', quality=70)  # Ajuster la qualité
+                
+                # Remplacer l'image originale par la version compressée
+                new_image_name = f"{self.image_prof.name.split('.')[0]}_compressed.jpg"
+                self.image_prof = ContentFile(img_io.getvalue(), new_image_name)
+            except Exception as e:
+                raise ValueError(f"Erreur lors du traitement de l'image : {e}")
+        
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.nom_prof} {self.prenom_prof}"
@@ -31,6 +52,24 @@ class Photo(models.Model):
     image = models.ImageField(upload_to='photos/')
     description = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def save(self, *args, **kwargs):
+        if self.image:
+            try:
+                img = Image.open(self.image)
+                img = img.convert('RGB')  # Assurer compatibilité
+                img_io = BytesIO()
+                
+                # Toujours compresser l'image
+                img.save(img_io, format='JPEG', quality=70)  # Ajuster la qualité
+                
+                # Remplacer l'image originale par la version compressée
+                new_image_name = f"{self.image.name.split('.')[0]}_compressed.jpg"
+                self.image = ContentFile(img_io.getvalue(), new_image_name)
+            except Exception as e:
+                raise ValueError(f"Erreur lors du traitement de l'image : {e}")
+        
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.titre
@@ -63,6 +102,24 @@ class Etudiant(models.Model):
     telephone_etu = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     id_filiere = models.ForeignKey(Filiere, on_delete=models.CASCADE)
+    
+    def save(self, *args, **kwargs):
+        if self.image_etu:
+            try:
+                img = Image.open(self.image_etu)
+                img = img.convert('RGB')  # Assurer compatibilité
+                img_io = BytesIO()
+                
+                # Toujours compresser l'image
+                img.save(img_io, format='JPEG', quality=70)  # Ajuster la qualité
+                
+                # Remplacer l'image originale par la version compressée
+                new_image_name = f"{self.image_etu.name.split('.')[0]}_compressed.jpg"
+                self.image_etu = ContentFile(img_io.getvalue(), new_image_name)
+            except Exception as e:
+                raise ValueError(f"Erreur lors du traitement de l'image : {e}")
+        
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.nom_etu} {self.prenom_etu}"

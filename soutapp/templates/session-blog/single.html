@@ -50,8 +50,14 @@
         <div class="post-entry text-center">
           <h1 class="mb-4">{{ rapport.titre }}</h1>
           <div class="post-meta align-items-center text-center">
-            <figure class="author-figure mb-0 me-3 d-inline-block"><img
-                src="{{ etudiant.image_etu.url }}" alt="Image" class="img-fluid"></figure>
+            <figure class="author-figure mb-0 me-3 d-inline-block">
+              <img
+                src="{{ etudiant.image_etu.url }}" 
+                alt="Image" 
+                class="img-fluid"
+                class="lazy"
+                >
+            </figure>
             <span class="d-inline-block mt-1">Par {{ etudiant.nom_etu }} {{ etudiant.prenom_etu }}</span>
             <span>&nbsp;-&nbsp; {{ sout.Date_sout }}</span>
           </div>
@@ -69,43 +75,48 @@
   <div class="container">
     <div class="row blog-entries element-animate">
       <div class="col-md-12 col-lg-8 main-content">
-        <div class="post-content-body">
-          <p>
-            {{ rapport.sommaire }}
-          </p>
-            <div class="row my-4">
-              {% for image in soutenance_images %}
-                <div class="col-md-6 mb-4">
-                  <img src="{{ image.id_photo.image.url }}" alt="Image" class="img-fluid rounded">
-                </div> 
-              {% endfor %}
-            </div>
-          <p>
-            {{ rapport.contenu }}
-          </p>
-        </div>
+
+        <!-- rapport section --> 
+        {% if rapport %} 
+          <div class="post-content-body">
+            <p>
+              {{ rapport.sommaire }}
+            </p>
+              <div class="row my-4">
+                {% for image in soutenance_images %}
+                  <div class="col-md-6 mb-4">
+                    <img src="{{ image.id_photo.image.url }}" alt="Image" class="img-fluid rounded" class="lazy">
+                  </div> 
+                {% endfor %}
+              </div>
+            <p>
+              {{ rapport.contenu }}
+            </p>
+          </div>
+        {% endif %} 
 
 
-        <!-- Jury section -->
-        <div class="pt-5 comment-wrap">
-          <h3 class="mb-5 heading">Menbres du Jury</h3>
-          <ul class="comment-list">
-            {% for superviseur in superviseurs %}
-              <li class="comment">
-                  <div class="vcard">
-                    <img src="{{ superviseur.id_prof.image_prof.url }}" alt="Image">
-                  </div>
-                  <div class="comment-body">
-                    <h3>{{ superviseur.id_prof.nom_prof }} {{ superviseur.id_prof.prenom_prof }}</h3> 
-                    <p>
-                      {{ superviseur.role }}
-                    </p>
-                  </div>
-              </li>
-            {% endfor %}
-
-          </ul>
-        </div>
+        <!-- Jury section --> 
+        {% if superviseurs %} 
+          <div class="pt-5 comment-wrap">
+            <h3 class="mb-5 heading">Menbres du Jury</h3>
+            <ul class="comment-list">
+              {% for superviseur in superviseurs %}
+                <li class="comment">
+                    <div class="vcard">
+                      <img src="{{ superviseur.id_prof.image_prof.url }}" alt="Image" class="lazy">
+                    </div>
+                    <div class="comment-body">
+                      <h3>{{ superviseur.id_prof.nom_prof }} {{ superviseur.id_prof.prenom_prof }}</h3> 
+                      <p>
+                        {{ superviseur.role }}
+                      </p>
+                    </div>
+                </li>
+              {% endfor %} 
+            </ul>
+          </div>
+        {% endif %} 
 
         <!-- Félicitations des professeurs -->
         {% if appreciations %}
@@ -115,7 +126,7 @@
                 {% for appreciation in appreciations %}
                   <li class="comment">
                     <div class="vcard">
-                      <img src="{{ appreciation.id_prof.image_prof.url }}" alt="Image">
+                      <img src="{{ appreciation.id_prof.image_prof.url }}" alt="Image" class="lazy">
                     </div>
                     <div class="comment-body">
                       <h3>{{ appreciation.id_prof.nom_prof }} {{ appreciation.id_prof.prenom_prof }}</h3> 
@@ -133,19 +144,22 @@
 
       <!-- END main-content -->
       <!-- Start sidebar -->
-      <div class="col-md-12 col-lg-4 sidebar">
-        <div class="sidebar-box rounded">
-          <div class="bio text-left">
-            <img src="{{ etudiant.image_etu.url }}" alt="Image" class="img-fluid mb-3 rounded">
-            <div class="bio-body">
-              <h2>{{ etudiant.nom_etu }} {{ etudiant.prenom_etu }}</h2>
-              <p class="mb-4">
-                Etudiant en {{ filiere.designation }}
-              </p>
+      
+      {% if etudiant %}
+        <div class="col-md-12 col-lg-4 sidebar">
+          <div class="sidebar-box rounded">
+            <div class="bio text-left">
+              <img src="{{ etudiant.image_etu.url }}" alt="Image" class="img-fluid mb-3 rounded" class="lazy">
+              <div class="bio-body">
+                <h2>{{ etudiant.nom_etu }} {{ etudiant.prenom_etu }}</h2>
+                <p class="mb-4">
+                  Etudiant en {{ filiere.designation }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </div> 
+        </div> 
+      {% endif %} 
       <!-- END sidebar -->
     </div>
   </div>
@@ -164,7 +178,7 @@
             <div class="col-md-6 col-lg-3">
               <div class="blog-entry">
                 <a href="{% url 'sout_detail' sout.id_sout %}" class="img-link">
-                  <img src="{{ sout.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid">
+                  <img src="{{ sout.id_etudiant.image_etu.url }}" alt="Image" class="img-fluid" class="lazy">
                 </a>
                 <span class="date">{{ sout.Date_sout }}</span>
                 <h2><a href="{% url 'sout_detail' sout.id_sout %}">{{ sout.theme }}</a></h2>

@@ -28,13 +28,25 @@ def index(request):
 # TODO: Affiche le tableau de bord
 def dashbord(request):
     # compter le nombre de Soutenance terminer
-    sout_finish = Soutenance.objects.filter(is_finish=True).count()
+    try:
+        sout_finish = Soutenance.objects.filter(is_finish=True).count()
+    except Exception as e:
+        pass
+    
     
     # Compter le nombre de soutenances non terminées
-    sout_unfinish = Soutenance.objects.filter(is_finish=False).count()
+    try:
+        sout_unfinish = Soutenance.objects.filter(is_finish=False).count()
+    except Exception as e:
+        pass
+    
     
     # Récupérer toutes les soutenances non terminées avec leurs étudiants
-    sout_etu = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant')
+    try:
+        sout_etu = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant')
+    except Exception as e:
+        pass
+    
     
     return render(request, 'session-templates/index.html', {'sout_finish': sout_finish, 'sout_unfinish': sout_unfinish, 'sout_etu': sout_etu})
 
@@ -42,7 +54,11 @@ def dashbord(request):
 # TODO: Affiche les soutenances prochaines sous forme de cards
 def blog_next(request): 
     # récupérer tout les soutenances terminer
-    sout = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant__id_filiere')
+    try:
+        sout = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant__id_filiere')
+    except Exception as e:
+        pass
+    
     
     return render(request, 'session-blog/blog.html', {'sout': sout})
 
@@ -50,7 +66,11 @@ def blog_next(request):
 # TODO: Affiche les soutenances terminer sous forme de cards
 def blog_past(request):
     # récupérer tout les soutenances terminer
-    sout_finish = Soutenance.objects.filter(is_finish=True).select_related('id_etudiant')
+    try:
+        sout_finish = Soutenance.objects.filter(is_finish=True).select_related('id_etudiant')
+    except Exception as e:
+        pass
+    
     
     return render(request, 'session-blog/blog.html', {'sout_finish': sout_finish})
 
@@ -73,22 +93,40 @@ class SoutDetail(DetailView):
         context['filiere'] = soutenance.id_etudiant.id_filiere  # Filière de l'étudiant
 
         # Professeurs supervisant cette soutenance
-        context['superviseurs'] = soutenance.superviser_set.all()
+        try:
+            context['superviseurs'] = soutenance.superviser_set.all()
+        except Exception as e:
+            pass
+        
 
         # Images associées à cette soutenance
         #context['soutenance_images'] = soutenance.soutenanceimage_set.all()
 
         # Images banniere
-        context['soutenance_banniere'] = soutenance.soutenanceimage_set.filter(pour="banniere").first()
+        try:
+            context['soutenance_banniere'] = soutenance.soutenanceimage_set.filter(pour="banniere").first()
+        except Exception as e:
+            pass
 
         # Rapport lié à cette soutenance
-        context['rapport'] = soutenance.rapport_set.first()
+        try:
+            context['rapport'] = soutenance.rapport_set.first()
+        except Exception as e:
+            pass
+        
 
         # Appréciations des professeurs
-        context['appreciations'] = soutenance.apprecier_set.all()
+        try :
+            context['appreciations'] = soutenance.apprecier_set.all()
+        except Exception as e:
+            pass
 
         # Soutenances non terminées
-        context['soutenances_non_terminees'] = Soutenance.objects.filter(is_finish=False)
+        try:
+            context['soutenances_non_terminees'] = Soutenance.objects.filter(is_finish=False)
+        except Exception as e:
+            pass
+        
 
         return context
 
@@ -111,22 +149,46 @@ class SoutDetailFinish(DetailView):
         context['filiere'] = soutenance.id_etudiant.id_filiere  # Filière de l'étudiant
 
         # Professeurs supervisant cette soutenance
-        context['superviseurs'] = soutenance.superviser_set.all()
+        try:
+            context['superviseurs'] = soutenance.superviser_set.all()
+        except Exception as e:
+            pass
+        
 
         # Images associées à cette soutenance
-        context['soutenance_images'] = soutenance.soutenanceimage_set.filter(pour="rapport")
+        try:
+            context['soutenance_images'] = soutenance.soutenanceimage_set.filter(pour="rapport")
+        except Exception as e:
+            pass
+        
 
         # Images banniere
-        context['soutenance_banniere'] = soutenance.soutenanceimage_set.filter(pour="banniere").first()
+        try:
+            context['soutenance_banniere'] = soutenance.soutenanceimage_set.filter(pour="banniere").first()
+        except Exception as e:
+            pass
+        
 
         # Rapport lié à cette soutenance
-        context['rapport'] = soutenance.rapport_set.first()
+        try:
+            context['rapport'] = soutenance.rapport_set.first()
+        except Exception as e:
+            pass
+        
 
         # Appréciations des professeurs
-        context['appreciations'] = soutenance.apprecier_set.all()
+        try:
+            context['appreciations'] = soutenance.apprecier_set.all()
+        except Exception as e:
+            pass
+        
 
         # Soutenances non terminées
-        context['soutenances_non_terminees'] = Soutenance.objects.filter(is_finish=False)
+        try:
+            context['soutenances_non_terminees'] = Soutenance.objects.filter(is_finish=False)
+        except Exception as e:
+            pass
+        
 
         return context
 
@@ -145,7 +207,11 @@ class ProfDetail(DetailView):
 
         # Ajouter les détails à afficher dans le template
         context['prof_pre'] = professeur  # professeur actuelle
-        context['lien'] = professeur.liensociale_set.all()  # lien associé
+        try:
+            context['lien'] = professeur.liensociale_set.all()  # lien associé
+        except Exception as e:
+            pass
+        
 
         return context
 
@@ -179,7 +245,10 @@ def faq(request):
 # TODO: Affiche les professeurs
 def prof(request):
     # *Récupérer tout les prof
-    prof = Professeur.objects.all() 
+    try:
+        prof = Professeur.objects.all()
+    except Exception as e:
+        pass
     
     return render(request, 'session-blog/prof.html', {'prof': prof})
 
