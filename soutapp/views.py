@@ -1,23 +1,15 @@
-from django.shortcuts import render, redirect 
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect  
 from django.contrib import messages # Import de Django messages frameworks pour afficher des messages de confirmation
-# *Dans le cadre de la mise en place du processus d'authentification
-from django.contrib.auth.views import LoginView
+# *Dans le cadre de la mise en place du processus d'authentification 
 from django.urls import reverse_lazy 
 from .forms import MessageForm, RegistrationForm, CustomAuthenticationForm
-from .models import Message, Professeur, Soutenance, Utilisateur
-from django.contrib.auth.models import AnonymousUser
+from .models import Message, Professeur, Soutenance, Utilisateur 
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.hashers import make_password
 # *Import generic views
-from django.views.generic.detail import DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin 
-from django.contrib.auth import logout
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.views.generic.detail import DetailView 
 from django.views.generic import View
-from django.utils.timezone import now
-from django.views.generic import FormView 
+from django.utils.timezone import now 
 
 
 # TODO: Affiche l'accueil du site qui est en même temps la page d'inscription
