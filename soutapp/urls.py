@@ -1,16 +1,14 @@
-#from .views import CustomLoginView
-from .views import logout_view
-from django.contrib.auth.views import LogoutView
+from .views import CustomLoginView
+from .views import logout_view 
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
-from django.contrib import admin
+from . import views 
 from django.urls import path
 
 urlpatterns = [
     
     # TODO: Affiche la page d'inscription
-    path('', views.dashbord, name='index'), 
+    path('', views.index, name='index'), 
     
     # TODO: Affiche l'accueil
     path('Tableau de Bord', views.dashbord, name='dashbord'),
@@ -40,10 +38,10 @@ urlpatterns = [
     path('prof', views.prof, name='prof'),
 
     # TODO: Affiche la page de connexion
-    #path('connexion/', CustomLoginView.as_view(), name='login'),
+    path('connexion/', CustomLoginView.as_view(), name='login'),
 
     # TODO: Affuche la page de déconnexion
-    #path('deconnexion/', logout_view, name='logout'),
+    path('deconnexion/', logout_view, name='logout'),
 
 ]
 if settings.DEBUG:
