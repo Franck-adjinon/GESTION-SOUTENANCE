@@ -1,48 +1,16 @@
-from .views import CustomLoginView
-from .views import logout_view 
-from django.conf import settings
-from django.conf.urls.static import static
-from . import views 
 from django.urls import path
+from . import crud
 
 urlpatterns = [
-    
-    # TODO: Affiche la page d'inscription
-    path('', views.index, name='index'), 
-    
-    # TODO: Affiche l'accueil
-    path('Tableau de Bord', views.dashbord, name='dashbord'),
-    
-    # TODO: Affiche les soutenances à venir 
-    path('blog_next', views.blog_next, name='blog_next'),
+    # Superviser CRUD URLs
+    path('supervisers/', crud.list_supervisers, name='list_supervisers'),
+    path('supervisers/create/', crud.create_superviser, name='create_superviser'),
+    path('supervisers/update/<int:id>/', crud.update_superviser, name='update_superviser'),
+    path('supervisers/delete/<int:id>/', crud.delete_superviser, name='delete_superviser'),
 
-    # TODO: Affiches les soutenances terminer
-    path('blog_past', views.blog_past, name='blog_past'),
-
-    # TODO: Détails des soutenances à venir
-    path('sout_detail/<int:pk>', views.SoutDetail.as_view(), name='sout_detail'),
-    
-    # TODO: Détails des soutenances terminer
-    path('sout_detail_finish/<int:pk>', views.SoutDetailFinish.as_view(), name='sout_detail_finish'),
-
-    # TODO: Section contact
-    path('contact', views.contact, name='contact'),
-
-    # TODO: Section faq 
-    path('faq', views.faq, name='faq'),
-
-    # TODO: Détails des professeurs 
-    path('prof_detail/<int:pk>', views.ProfDetail.as_view(), name='prof_detail'),
-    
-    # TODO: Affiche les professeurs
-    path('prof', views.prof, name='prof'),
-
-    # TODO: Affiche la page de connexion
-    path('connexion/', CustomLoginView.as_view(), name='login'),
-
-    # TODO: Affuche la page de déconnexion
-    path('deconnexion/', logout_view, name='logout'),
-
+    # Apprecier CRUD URLs
+    path('apprecies/', crud.list_apprecies, name='list_apprecies'),
+    path('apprecies/create/', crud.create_apprecier, name='create_apprecier'),
+    path('apprecies/update/<int:id>/', crud.update_apprecier, name='update_apprecier'),
+    path('apprecies/delete/<int:id>/', crud.delete_apprecier, name='delete_apprecier'),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
