@@ -199,3 +199,18 @@ class Utilisateur(models.Model):
 
     def __str__(self):
         return f"{self.nom_user} {self.prenom_user}"
+
+
+class administrateur(models.Model):
+    id_admin = models.AutoField(primary_key=True)
+    nom_admin = models.CharField(max_length=50)
+    prenom_admin = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100, unique=True)
+    password = models.CharField(max_length=255) 
+    last_login = models.DateTimeField(null=True, blank=True)  # Champ ajouté
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return f"{self.nom_admin} {self.prenom_admin}"

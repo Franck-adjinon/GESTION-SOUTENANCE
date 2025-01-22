@@ -1,29 +1,15 @@
-{% extends 'session-templates/base.html' %}
+{% extends 'session-admin/base.html' %}
 {% load static %}
 
-{% block active-dash %}
-<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true">
-</span>
-{% endblock %}
 
-{% block active-dash-mobile %}
-<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
-{% endblock %}
-
-{% block Page-title %}
-SOUTAPP-Tableau de Bord
-{% endblock %}
-
-{% block search-input %}
-{% endblock %}
 
 {% block content %}
-<main class="h-full overflow-y-auto">
-  <div class="container px-6 mx-auto grid">
-    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"> 
-      Bienvenue {{ user.nom_user }} {{ user.prenom_user }} 
-    </h2>
-    <!-- Cards -->
+<div class="container px-6 mx-auto grid">
+                    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                        Bienvenue {{ user.nom_admin }} {{ user.prenom_admin }} 
+                    </h2>
+
+                    <!-- Cards -->
     <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
       <!-- Card -->
       <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
@@ -110,7 +96,5 @@ SOUTAPP-Tableau de Bord
         </table>
       </div> 
     </div>
-
-  </div>
-</main>
+                </div>
 {% endblock %}

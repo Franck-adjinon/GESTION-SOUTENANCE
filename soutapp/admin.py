@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Photo, Professeur, LienSociale, Message, Filiere, Etudiant, Soutenance, Rapport, Superviser, Apprecier, SoutenanceImage
+from .models import Photo, Professeur, LienSociale, Message, Filiere, Etudiant, Soutenance, Rapport, Superviser, Apprecier, SoutenanceImage, Utilisateur, administrateur
 
 
 @admin.register(Professeur)
@@ -244,6 +244,64 @@ class ApprecierAdmin(admin.ModelAdmin):
 class SoutenanceImageAdmin(admin.ModelAdmin):
     list_display = ('id_sout', 'id_photo', 'pour', 'create_date')  # Affiche ces colonnes dans la liste
     list_filter = ["id_sout"]                 # ajout de filtrage à l’aide de l’attribut list_filter
+    
+    @admin.display(
+        ordering="created_at",
+        description="Date Ajout",
+    )
+    def create_date(self, obj):
+        return obj.created_at
+
+
+@admin.register(administrateur)
+class administrateurAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'eml', 'create_date')  # Affiche ces colonnes dans la liste
+    search_fields = ('nom_admin','prenom_admin',)             # Permet de rechercher par titre
+    list_filter = ["created_at"]                 # ajout de filtrage à l’aide de l’attribut list_filter
+    
+    @admin.display(
+        ordering="nom_admin",
+        description="Nom - Prenom",
+    )
+    def full_name(self, obj):
+        return obj.nom_admin + " " + obj.prenom_admin
+    
+    
+    @admin.display(
+        ordering="email",
+        description="Email admin",
+    )
+    def eml(self, obj):
+        return obj.email
+    
+    @admin.display(
+        ordering="created_at",
+        description="Date Ajout",
+    )
+    def create_date(self, obj):
+        return obj.created_at
+
+
+@admin.register(Utilisateur)
+class UtilisateurAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'eml', 'create_date')  # Affiche ces colonnes dans la liste
+    search_fields = ('nom_user','prenom_user',)             # Permet de rechercher par titre
+    list_filter = ["created_at"]                 # ajout de filtrage à l’aide de l’attribut list_filter
+    
+    @admin.display(
+        ordering="nom_user",
+        description="Nom - Prenom",
+    )
+    def full_name(self, obj):
+        return obj.nom_user + " " + obj.prenom_user
+    
+    
+    @admin.display(
+        ordering="email",
+        description="Email admin",
+    )
+    def eml(self, obj):
+        return obj.email
     
     @admin.display(
         ordering="created_at",

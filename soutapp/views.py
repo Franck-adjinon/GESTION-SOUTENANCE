@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages # Import de Django messages frameworks pour afficher des messages de confirmation
 # *Dans le cadre de la mise en place du processus d'authentification 
 from django.urls import reverse_lazy 
-from .forms import MessageForm, RegistrationForm, CustomAuthenticationForm
-from .models import Message, Professeur, Soutenance, Utilisateur 
+from .forms import MessageForm, RegistrationForm, CustomAuthenticationForm, AdminAuthenticationForm
+from .models import Message, Professeur, Soutenance, Utilisateur, administrateur 
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.hashers import make_password
 # *Import generic views
@@ -399,3 +399,80 @@ class CustomLoginView(View):
             messages.error(request, "Veuillez vérifier vos informations.")
 
         return render(request, self.template_name, {'form': form})
+
+
+# Afficher l'interface de connexion des administrateurs
+class login_admin(View):
+    template_name = 'session-admin/pages/login.html'
+    success_url = reverse_lazy('admin-dashboard')  # Redirection après connexion réussie
+
+    def get(self, request):
+        form = AdminAuthenticationForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = AdminAuthenticationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            
+            try:
+                # Vérifier si l'administrateur existe dans la base de données
+                user = administrateur.objects.get(email=email)
+                if password == user.password:  # Vérifier le mot de passe
+                    # Simuler la connexion de l'administrateur
+                    request.session['user_id'] = user.id_admin  # Stocker l'ID administrateur dans la session
+                    user.last_login = now()
+                    user.save()
+                    messages.success(request, "Connexion réussie !")
+                    return redirect(self.success_url)
+                else:
+                    messages.error(request, "Mot de passe incorrect.")
+            except administrateur.DoesNotExist:
+                messages.error(request, "Cet email n'est pas enregistré.")
+        else:
+            messages.error(request, "Veuillez vérifier vos informations.")
+    
+        return render(request, self.template_name, {'form': form})
+
+
+# Affiche le tableau de bord des administrateurs
+def admin_dashboard(request):
+    
+    # * Début gestion des administrateur 
+    user_id = request.session.get('user_id')
+    if not user_id: 
+        return redirect('login') 
+    # Récupérer l'administrateur connecté pour en suite le passer à la page via {'user': user}
+    user = administrateur.objects.get(id_admin=user_id)
+    # * Fin gestion des administrateur
+    
+    # compter le nombre de Soutenance terminer
+    try:
+        sout_finish = Soutenance.objects.filter(is_finish=True).count()
+    except Exception as e:
+        pass
+    
+    
+    # Compter le nombre de soutenances non terminées
+    try:
+        sout_unfinish = Soutenance.objects.filter(is_finish=False).count()
+    except Exception as e:
+        pass
+    
+    
+    # Récupérer toutes les soutenances non terminées avec leurs étudiants
+    try:
+        sout_etu = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant')
+    except Exception as e:
+        pass
+    
+    
+    return render(request, 'session-admin/dashboard.html', {'sout_finish': sout_finish, 'sout_unfinish': sout_unfinish, 'sout_etu': sout_etu, 'user': user})
+
+
+# Fonction pour gérer la déconnexion des administrateurs
+def logout_admin_view(request):
+    if 'user_id' in request.session:
+        del request.session['user_id']  # Supprimer l'utilisateur de la session 
+    return redirect('administrateur')
