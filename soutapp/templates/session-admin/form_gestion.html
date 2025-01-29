@@ -6,8 +6,8 @@
 {% block content %}
     {% if view_name == 'create_superviser' %}    
         <div class="container px-6 mx-auto grid">
-
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
                             <div>
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -26,10 +26,17 @@
                                             Soutenance
                                         </span>
                                         <select
+                                            name="id_sout" id="id_sout"
                                             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                                            {% for Soutenance in Soutenances %}
-                                                <option>{{ Soutenance.theme }}</option> 
-                                            {% endfor %}
+                                            
+                                            {% if superviseur %} 
+                                                <option value="{{ superviseur.id }}">{{ superviseur.id_sout.theme }}</option> 
+                                            {% else %}
+                                                {% for Soutenance in Soutenances %}
+                                                    <option value="{{ Soutenance.id_sout }}">{{ Soutenance.theme }}</option> 
+                                                {% endfor %}
+                                            {% endif %}  
+
                                         </select>
                                     </label>
 
@@ -38,19 +45,25 @@
                                             Professeur
                                         </span>
                                         <select
+                                            name="id_prof" id="id_prof"
                                             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                                            {% for Professeur in Professeurs %}
-                                                <option>{{ Professeur.nom_prof }} {{ Professeur.prenom_prof }}</option> 
-                                            {% endfor %}
+                                            
+                                            {% if superviseur %} 
+                                                <option value="{{ superviseur.id }}">{{ superviseur.id_prof.nom_prof }} {{ superviseur.id_prof.prenom_prof }}</option> 
+                                            {% else %}
+                                                {% for Professeur in Professeurs %}
+                                                    <option value="{{ Professeur.id_prof }}">{{ Professeur.nom_prof }} {{ Professeur.prenom_prof }}</option> 
+                                                {% endfor %}
+                                            {% endif %}  
                                         </select>
                                     </label>
 
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium text-gray-700"> Rôle
+                                        <label for="role" class="block text-sm font-medium text-gray-700"> Rôle
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="first-name" id="first-name"
-                                                autocomplete="given-name"
+                                            <input type="text" name="role" id="role"
+                                                autocomplete="role"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
@@ -60,14 +73,10 @@
                         </div> 
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
-                                    class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <button type="submit"
+                                    class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
@@ -75,11 +84,11 @@
                             </div>
                         </div>
                     </form> 
-                </div>
+        </div>
     {% elif view_name == 'create_apprecier' %} 
-        <div class="container px-6 mx-auto grid">
-
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+        <div class="container px-6 mx-auto grid"> 
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
                             <div>
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -89,18 +98,17 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="pt-8">
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-
                                     <label class="block mt-4 text-sm">
                                         <span class="text-gray-700 dark:text-gray-400">
                                             Soutenance
                                         </span>
                                         <select
+                                            name="id_sout" id="id_sout"
                                             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                                             {% for Soutenance in Soutenances %}
-                                                <option>{{ Soutenance.theme }}</option> 
+                                                <option value="{{ Soutenance.id_sout }}">{{ Soutenance.theme }}</option> 
                                             {% endfor %}
                                         </select>
                                     </label>
@@ -109,56 +117,47 @@
                                         <span class="text-gray-700 dark:text-gray-400">
                                             Professeur
                                         </span>
-                                        <select
+                                        <select 
+                                            name="id_prof" id="id_prof"
                                             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                                             {% for Professeur in Professeurs %}
-                                                <option>{{ Professeur.nom_prof }} {{ Professeur.prenom_prof }}</option> 
+                                                <option  value="{{ Professeur.id_prof }}">{{ Professeur.nom_prof }} {{ Professeur.prenom_prof }}</option> 
                                             {% endfor %}
                                         </select>
                                     </label>
 
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium text-gray-700"> appreciation
+                                        <label for="appreciation" class="block text-sm font-medium text-gray-700"> appreciation
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="first-name" id="first-name"
-                                                autocomplete="given-name"
+                                            <input type="text" name="appreciation" id="appreciation"
+                                                autocomplete="appreciation"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
-                                    </div>
-
-
+                                    </div> 
                                 </div>
-                            </div>
-
+                            </div> 
                         </div>
 
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
+                                <button type="submit"
                                     class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
                                 </button>
                             </div>
                         </div>
-                    </form>
-
-
-
+                    </form> 
                 </div>
     {% elif view_name == 'create_LienSociale' %} 
         <div class="container px-6 mx-auto grid">
-
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST" >
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
                             <div>
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6"> 
@@ -172,23 +171,24 @@
                             <div class="pt-8">
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium text-gray-700"> Titre
+                                        <label for="designation" class="block text-sm font-medium text-gray-700"> 
+                                            Designation
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="first-name" id="first-name"
-                                                autocomplete="given-name"
+                                            <input type="text" name="designation" id="designation"
+                                                autocomplete="designation"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700">
-                                            Description
+                                        <label for="lien" class="block text-sm font-medium text-gray-700">
+                                            Lien
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="last-name" id="last-name"
-                                                autocomplete="family-name"
+                                            <input type="text" name="lien" id="lien"
+                                                autocomplete="lien"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
@@ -200,49 +200,39 @@
                                                 Professeur
                                             </span>
                                             <select
+                                                name="id_prof" id="id_prof"
                                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                                                 {% for Professeur in Professeurs %}
-                                                    <option>{{ Professeur.nom_prof }} {{ Professeur.prenom_prof }}</option> 
+                                                    <option value="{{ Professeur.id_prof }}">{{ Professeur.nom_prof }} {{ Professeur.prenom_prof }}</option> 
                                                 {% endfor %}
                                             </select>
                                         </label>
                                     </div>
-
-
                                 </div>
                             </div>
-
-                        </div>
-
+                        </div> 
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
+                                <button type="submit"
                                     class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
                                 </button>
                             </div>
                         </div>
-                    </form>
-
-
-
+                    </form> 
                 </div>
     {% elif view_name == 'create_Photos'  %}  
         <div class="container px-6 mx-auto grid"> 
-
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST"  enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
+                            <!-- Photo -->
                             <div>
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-
                                     <div class="sm:col-span-6">
                                         <label for="photo" class="block text-sm font-medium text-gray-700"> Photo
                                         </label>
@@ -269,10 +259,10 @@
                                                         stroke-linejoin="round" />
                                                 </svg>
                                                 <div class="flex text-sm text-gray-600">
-                                                    <label for="file-upload"
+                                                    <label for="image"
                                                         class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
 
-                                                        <input id="file-upload" name="file-upload" type="file"
+                                                        <input id="image" name="image" type="file"
                                                             class="sr-only">
                                                     </label>
                                                 </div> 
@@ -285,53 +275,43 @@
                             <div class="pt-8">
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="titre-name" class="block text-sm font-medium text-gray-700"> Titre
+                                        <label for="titre" class="block text-sm font-medium text-gray-700"> Titre
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="titre-name" id="titre-name"
-                                                autocomplete="given-name"
+                                            <input type="text" name="titre" id="titre"
+                                                autocomplete="titre"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="descp-name" class="block text-sm font-medium text-gray-700"> Description
+                                        <label for="description" class="block text-sm font-medium text-gray-700"> Description
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="descp-name" id="descp-name"
-                                                autocomplete="family-name"
+                                            <input type="text" name="description" id="description"
+                                                autocomplete="description"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
-                                    </div>
-
-
+                                    </div> 
                                 </div>
-                            </div>
-
+                            </div> 
                         </div>
 
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
+                                <button type="submit"
                                     class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
                                 </button>
                             </div>
                         </div>
-                    </form>
-
-
-
+                    </form> 
                 </div>
     {% elif view_name == 'create_Professeurs'  %} 
         <div class="container px-6 mx-auto grid">
@@ -339,7 +319,8 @@
                         Professeur
                     </h2> 
 
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
                             <div>  
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -367,13 +348,13 @@
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                                 <div class="flex text-sm text-gray-600">
-                                                    <label for="file-upload"
+                                                    <label for="image_prof"
                                                         class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                         
-                                                        <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                                        <input id="image_prof" name="image_prof" type="file" class="sr-only">
                                                     </label> 
                                                 </div>
-                                                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                                <p class="text-xs text-gray-500">PNG, JPG, GIF</p>
                                             </div>
                                         </div>
                                     </div>
@@ -383,54 +364,54 @@
                             <div class="pt-8"> 
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium text-gray-700"> Nom </label>
+                                        <label for="nom_prof" class="block text-sm font-medium text-gray-700"> Nom </label>
                                         <div class="mt-1"> 
-                                            <input type="text" name="first-name" id="first-name" autocomplete="given-name"
+                                            <input type="text" name="nom_prof" id="nom_prof" autocomplete="nom_prof"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
                     
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700"> Prénom </label>
+                                        <label for="prenom_prof" class="block text-sm font-medium text-gray-700"> Prénom </label>
                                         <div class="mt-1"> 
-                                            <input type="text" name="last-name" id="last-name" autocomplete="family-name"
+                                            <input type="text" name="prenom_prof" id="prenom_prof" autocomplete="prenom_prof"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="spec-prof" class="block text-sm font-medium text-gray-700"> Spécialité </label>
+                                        <label for="specialite_prof" class="block text-sm font-medium text-gray-700"> Spécialité </label>
                                         <div class="mt-1">
-                                            <input type="text" name="spec-prof" id="spec-prof" autocomplete="spec-prof"
+                                            <input type="text" name="specialite_prof" id="specialite_prof" autocomplete="specialite_prof"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
                     
                                     <div class="sm:col-span-4">
-                                        <label for="email" class="block text-sm font-medium text-gray-700"> Email address </label>
+                                        <label for="email_prof" class="block text-sm font-medium text-gray-700"> Email address </label>
                                         <div class="mt-1"> 
-                                            <input id="email" name="email" type="email" autocomplete="email"
+                                            <input id="email_prof" name="email_prof" type="email" autocomplete="email_prof"
                                                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                     placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="adr-prof" class="block text-sm font-medium text-gray-700"> Adresse </label>
+                                        <label for="adresse_prof" class="block text-sm font-medium text-gray-700"> Adresse </label>
                                         <div class="mt-1">
-                                            <input type="text" name="adr-prof" id="adr-prof" autocomplete="adr-prof"
+                                            <input type="text" name="adresse_prof" id="adresse_prof" autocomplete="adresse_prof"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="contact-prof" class="block text-sm font-medium text-gray-700"> Contact </label>
+                                        <label for="telephone_prof" class="block text-sm font-medium text-gray-700"> Contact </label>
                                         <div class="mt-1">
-                                            <input type="text" name="contact-prof" id="contact-prof" autocomplete="contact-prof"
+                                            <input type="text" name="telephone_prof" id="telephone_prof" autocomplete="telephone_prof"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
@@ -443,14 +424,13 @@
                     
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
-                                    class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <button 
+                                    type="submit"
+                                    class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    
+                                    >
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
@@ -459,26 +439,23 @@
                         </div>
                     </form>
 
-
-                    
-                </div>
+        </div>
     {% elif view_name == 'create_Filieres'  %} 
         <div class="container px-6 mx-auto grid">
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                         Filière
                     </h2> 
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
-                        <div class="space-y-8 divide-y divide-gray-200">
-                            
-
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+                        {% csrf_token %}
+                        <div class="space-y-8 divide-y divide-gray-200"> 
                             <div class="pt-8">
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="desg-name" class="block text-sm font-medium text-gray-700"> Designation
+                                        <label for="designation" class="block text-sm font-medium text-gray-700"> Designation
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="desg-name" id="desg-name"
-                                                autocomplete="desg-name"
+                                            <input type="text" name="designation" id="designation"
+                                                autocomplete="designation"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
@@ -490,14 +467,10 @@
                         <div class="pt-5">
                             <div class="flex justify-end">
                                 <button 
-                                    type="button"
+                                    type="submit"
                                     class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
@@ -515,7 +488,8 @@
                         Etudiant
                     </h2> 
 
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
                             <div>
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -546,14 +520,14 @@
                                                         stroke-linejoin="round" />
                                                 </svg>
                                                 <div class="flex text-sm text-gray-600">
-                                                    <label for="file-upload"
+                                                    <label for="image_etu"
                                                         class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
 
-                                                        <input id="file-upload" name="file-upload" type="file"
+                                                        <input id="image_etu" name="image_etu" type="file"
                                                             class="sr-only">
                                                     </label>
                                                 </div>
-                                                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                                <p class="text-xs text-gray-500">PNG, JPG</p>
                                             </div>
                                         </div>
                                     </div>
@@ -563,43 +537,43 @@
                             <div class="pt-8">
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium text-gray-700"> Nom
+                                        <label for="nom_etu" class="block text-sm font-medium text-gray-700"> Nom
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="first-name" id="first-name"
-                                                autocomplete="given-name"
+                                            <input type="text" name="nom_etu" id="nom_etu"
+                                                autocomplete="nom_etu"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700"> Prénom
+                                        <label for="prenom_etu" class="block text-sm font-medium text-gray-700"> Prénom
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="last-name" id="last-name"
-                                                autocomplete="family-name"
+                                            <input type="text" name="prenom_etu" id="prenom_etu"
+                                                autocomplete="prenom_etu"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div> 
 
                                     <div class="sm:col-span-4">
-                                        <label for="email" class="block text-sm font-medium text-gray-700"> Email
-                                            address </label>
+                                        <label for="email_etu" class="block text-sm font-medium text-gray-700"> Email
+                                            Email </label>
                                         <div class="mt-1">
-                                            <input id="email" name="email" type="email" autocomplete="email"
+                                            <input id="email_etu" name="email_etu" type="email" autocomplete="email_etu"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="contact-prof" class="block text-sm font-medium text-gray-700">
+                                        <label for="telephone_etu" class="block text-sm font-medium text-gray-700">
                                             Contact </label>
                                         <div class="mt-1">
-                                            <input type="text" name="contact-prof" id="contact-prof"
-                                                autocomplete="contact-prof"
+                                            <input type="text" name="telephone_etu" id="telephone_etu"
+                                                autocomplete="telephone_etu"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
@@ -608,16 +582,18 @@
                                     <div class="sm:col-span-3">
                                         <label class="block mt-4 text-sm">
                                             <span class="text-gray-700 dark:text-gray-400">
-                                                Filiere
+                                                Filière
                                             </span>
                                             <select
+                                                name="id_filiere" id="id_filiere"
                                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                                                 {% for Filiere in Filieres %}
-                                                    <option>{{ Filiere.designation }}</option> 
+                                                    <option value="{{ Filiere.id_filiere }}">{{ Filiere.designation }}</option>
                                                 {% endfor %}
                                             </select>
                                         </label>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -626,29 +602,22 @@
 
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
+                                <button type="submit"
                                     class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
                                 </button>
                             </div>
                         </div>
-                    </form>
-
-
-
-                </div>
+                    </form> 
+        </div>
     {% elif view_name == 'create_Soutenances'  %} 
         <div class="container px-6 mx-auto grid">
-
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
                             <div>
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -662,58 +631,69 @@
                             <div class="pt-8">
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium text-gray-700"> Theme
+                                        <label for="theme" class="block text-sm font-medium text-gray-700"> Theme
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="first-name" id="first-name"
-                                                autocomplete="given-name"
+                                            <input type="text" name="theme" id="theme"
+                                                autocomplete="theme"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700">
+                                        <label for="Heure_deb" class="block text-sm font-medium text-gray-700">
                                             Heure Début
                                         </label>
                                         <div class="mt-1">
-                                            <input type="time" name="last-name" id="last-name"
-                                                autocomplete="family-name"
+                                            <input type="time" name="Heure_deb" id="Heure_deb"
+                                                autocomplete="Heure_deb"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700">
+                                        <label for="Heure_fin" class="block text-sm font-medium text-gray-700">
                                             Heure Fin
                                         </label>
                                         <div class="mt-1">
-                                            <input type="time" name="last-name" id="last-name" autocomplete="family-name"
+                                            <input type="time" name="Heure_fin" id="Heure_fin" autocomplete="Heure_fin"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700">
+                                        <label for="Date_sout" class="block text-sm font-medium text-gray-700">
                                             Date Soutenance
                                         </label>
                                         <div class="mt-1">
-                                            <input type="date" name="last-name" id="last-name" autocomplete="family-name"
+                                            <input type="date" name="Date_sout" id="Date_sout" autocomplete="Date_sout"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700">
+                                        <label for="lieu" class="block text-sm font-medium text-gray-700">
                                             Lieu
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="last-name" id="last-name" autocomplete="family-name"
+                                            <input type="text" name="lieu" id="lieu" autocomplete="lieu"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="relative flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="is_finish" name="is_finish" type="checkbox"
+                                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="is_finish" class="font-medium text-gray-700">Terminer ?</label>
+                                            <p class="text-gray-500">Cocher si soutenance terminer.</p>
                                         </div>
                                     </div>
 
@@ -723,56 +703,36 @@
                                                 Etudiant
                                             </span>
                                             <select
+                                                name="id_etudiant" id="id_etudiant"
                                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                                                 {% for Etudiant in Etudiants %}
-                                                    <option>{{ Etudiant.nom_etu }} {{ Etudiant.prenom_etu }}</option> 
+                                                    <option value="{{ Etudiant.id_etudiant }}">{{ Etudiant.nom_etu }} {{ Etudiant.prenom_etu }}</option> 
                                                 {% endfor %}
                                             </select>
                                         </label>
-                                    </div>
-
-                                    <div class="relative flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="comments" name="comments" type="checkbox"
-                                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="comments" class="font-medium text-gray-700">Terminer ?</label>
-                                            <p class="text-gray-500">Cocher si soutenance terminer.</p>
-                                        </div>
-                                    </div>
-
-
+                                    </div> 
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
+                                <button type="submit"
                                     class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
                                 </button>
                             </div>
                         </div>
-                    </form>
-
-
-
+                    </form> 
                 </div>
     {% elif view_name == 'create_Soutenancesimages'  %} 
         <div class="container px-6 mx-auto grid">
-
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
                             <div>
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -791,9 +751,10 @@
                                             Soutenance
                                         </span>
                                         <select
+                                            name="id_sout" id="id_sout"
                                             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                                             {% for Soutenance in Soutenances %}
-                                                    <option>{{ Soutenance.theme }} </option> 
+                                                    <option value="{{ Soutenance.id_sout }}">{{ Soutenance.theme }} </option> 
                                             {% endfor %}
                                         </select>
                                     </label>
@@ -803,55 +764,47 @@
                                             Image
                                         </span>
                                         <select
+                                            name="id_photo" id="id_photo"
                                             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                                             {% for Photo in Photos %}
-                                                    <option>{{ Photo.titre }} </option> 
+                                                    <option value="{{ Photo.id_photo }}">{{ Photo.titre }} </option> 
                                             {% endfor %}
                                         </select>
                                     </label>
 
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium text-gray-700"> Pour 
+                                        <label for="pour" class="block text-sm font-medium text-gray-700"> Pour 
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="first-name" id="first-name"
-                                                autocomplete="given-name"
+                                            <input type="text" name="pour" id="pour"
+                                                autocomplete="pour"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
-                                    </div>
-
-
+                                    </div> 
                                 </div>
-                            </div>
-
-                        </div>
+                            </div> 
+                        </div> 
 
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
+                                <button type="submit"
                                     class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour
                                 </button>
                             </div>
                         </div>
-                    </form>
-
-
-
+                    </form> 
                 </div>
     {% elif view_name == 'create_Rapports'  %} 
         <div class="container px-6 mx-auto grid">
 
-                    <form class="space-y-8 container m-auto divide-y divide-gray-200">
+                    <form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+                        {% csrf_token %}
                         <div class="space-y-8 divide-y divide-gray-200">
                             <div>
                                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -870,43 +823,46 @@
                                             Pour la Soutenance
                                         </span>
                                         <select
+                                                name="id_sout" id="id_sout"
                                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                                                 {% for Soutenance in Soutenances %}
-                                                    <option>{{ Soutenance.theme }} </option> 
+                                                    <option value="{{ Soutenance.id_sout }}">{{ Soutenance.theme }} </option> 
                                                 {% endfor %}
                                         </select>
                                     </label>
 
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium text-gray-700"> Titre
+                                        <label for="titre" class="block text-sm font-medium text-gray-700"> Titre
                                         </label>
                                         <div class="mt-1">
-                                            <input type="text" name="first-name" id="first-name"
-                                                autocomplete="given-name"
+                                            <input type="text" name="titre" id="titre"
+                                                autocomplete="titre"
                                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                                 placeholder="" />
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700">
+                                        <label for="sommaire" class="block text-sm font-medium text-gray-700">
                                             Sommaire
                                         </label>
                                         <div class="mt-1">
                                             <textarea
+                                                name="sommaire" id="sommaire"
                                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                                rows="12" placeholder="Enter some long form content."></textarea>
+                                                rows="12" placeholder=""></textarea>
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium text-gray-700">
+                                        <label for="contenu" class="block text-sm font-medium text-gray-700">
                                             Contenu
                                         </label>
                                         <div class="mt-1">
                                             <textarea
+                                                name="contenu" id="contenu"
                                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                                rows="12" placeholder="Enter some long form content."></textarea>
+                                                rows="12" placeholder=""></textarea>
                                         </div>
                                     </div>
 
@@ -918,14 +874,10 @@
 
                         <div class="pt-5">
                             <div class="flex justify-end">
-                                <button type="button"
+                                <button type="submit"
                                     class="bg-green py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Sauvegarder
-                                </button>
-                                <button type="button"
-                                    class="bg-red py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Supprimer
-                                </button>
+                                </button> 
                                 <button type="button"
                                     class="bg-blue py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Mettre à jour

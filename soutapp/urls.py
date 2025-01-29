@@ -44,13 +44,13 @@ urlpatterns = [
     # TODO: Affuche la page de déconnexion
     path('deconnexion/', logout_view, name='logout'),
     
-    # Afficher l'interface de connexion des administrateurs
+    # TODO: Afficher l'interface de connexion des administrateurs
     path('administrateur/', login_admin.as_view(), name='administrateur'),
     
-    # Afficher dashboard des administrateurs
+    # TODO: Afficher dashboard des administrateurs
     path('admin-dashboard/', views.admin_dashboard, name='admin-dashboard'),
     
-    # Déconnecter l'administrateur
+    # TODO: Déconnecter l'administrateur
     path('deconnexion-admin/', logout_admin_view, name='logout_admin'),
     
 
@@ -59,7 +59,7 @@ urlpatterns = [
     path('admin-dashboard-supervisers/', crud.list_supervisers, name='list_supervisers'),
     path('admin-dashboard-supervisers/create/', crud.create_superviser, name='create_superviser'),
     path('admin-dashboard-supervisers/update/<int:id>/', crud.update_superviser, name='update_superviser'),
-    path('admin-dashboard-supervisers/delete/<int:id_prof>/<int:id_sout>/<str:create_at>/', crud.delete_superviser, name='delete_superviser'),
+    path('admin-dashboard-supervisers/delete/<int:id>', crud.delete_superviser, name='delete_superviser'),
 
     # Apprecier CRUD URLs
     path('admin-dashboard-apprecies/', crud.list_apprecies, name='list_apprecies'),
@@ -76,32 +76,50 @@ urlpatterns = [
     # Professeurs CRUD URLs
     path('admin-dashboard-Professeurs/', crud.list_Professeurs, name='list_Professeurs'),
     path('admin-dashboard-Professeurs/create/', crud.create_Professeurs, name='create_Professeurs'),
+    path('admin-dashboard-Professeurs/update/<int:id>/', crud.update_professeurs, name='update_professeurs'),
+    path('admin-dashboard-Professeurs/delete/<int:id>/', crud.delete_professeurs, name='delete_professeurs'),
     
     # list_Etudiants CRUD URLs
     path('admin-dashboard-Etudiants/', crud.list_Etudiants, name='list_Etudiants'),
     path('admin-dashboard-Etudiants/create/', crud.create_Etudiants, name='create_Etudiants'),
+    path('admin-dashboard-Etudiants/update/<int:id>/', crud.update_etudiant, name='update_etudiant'),
+    path('admin-dashboard-Etudiants/delete/<int:id>/', crud.delete_etudiant, name='delete_etudiant'),
     
     # Photos CRUD URLs
     path('admin-dashboard-Photos/', crud.list_Photos, name='list_Photos'),
     path('admin-dashboard-Photos/create/', crud.create_Photos, name='create_Photos'),
+    path('admin-dashboard-Photos/update/<int:id>/', crud.update_photo, name='update_photo'),
+    path('admin-dashboard-Photos/delete/<int:id>/', crud.delete_photo, name='delete_photo'),
     
     # Filieres CRUD URLs 
     path('admin-dashboard-Filieres/', crud.list_Filieres, name='list_Filieres'),
     path('admin-dashboard-Filieres/create/', crud.create_Filieres, name='create_Filieres'),
+    path('admin-dashboard-Filieres/update/<int:id>/', crud.update_filiere, name='update_filiere'),
+    path('admin-dashboard-Filieres/delete/<int:id>/', crud.delete_filiere, name='delete_filiere'),
     
     # Soutenances CRUD URLs 
     path('admin-dashboard-Soutenances/', crud.list_Soutenances, name='list_Soutenances'),
     path('admin-dashboard-Soutenances/create/', crud.create_Soutenances, name='create_Soutenances'),
+    path('admin-dashboard-Soutenances/update/<int:id>/', crud.update_soutenance, name='update_soutenance'),
+    path('admin-dashboard-Soutenances/delete/<int:id>/', crud.delete_soutenances, name='delete_soutenances'),
     
     # Rapports CRUD URLs 
     path('admin-dashboard-Rapports/', crud.list_Rapports, name='list_Rapports'),
     path('admin-dashboard-Rapports/create/', crud.create_Rapports, name='create_Rapports'),
+    path('admin-dashboard-Rapports/update/<int:id>/', crud.update_rapports, name='update_rapports'),
+    path('admin-dashboard-Rapports/delete/<int:id>/', crud.delete_rapports, name='delete_rapports'),
     
     # Soutenances_images CRUD URLs 
     path('admin-dashboard-Soutenancesimages/', crud.list_Soutenances_images, name='list_Soutenances_images'),
     path('admin-dashboard-Soutenancesimages/create/', crud.create_Soutenancesimages, name='create_Soutenancesimages'),
+    path('admin-dashboard-Soutenancesimages/update/<int:id>/', crud.update_soutenanceImage, name='update_soutenanceImage'),
+    path('admin-dashboard-Soutenancesimages/delete/<int:id>/', crud.delete_soutenanceImage, name='delete_soutenanceImage'),
     
+    # TODO: accéder au profil admin
+    path('profil_admin', views.profil_admin, name='profil_admin'),
     
+    # TODO: Accéder au profil de l'utilisateur
+    path('user_profil', views.user_profil, name='user_profil'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect  
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages # Import de Django messages frameworks pour afficher des messages de confirmation
 # *Dans le cadre de la mise en place du processus d'authentification 
 from django.urls import reverse_lazy 
@@ -66,7 +66,7 @@ def dashbord(request):
     
     # Récupérer toutes les soutenances non terminées avec leurs étudiants
     try:
-        sout_etu = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant')
+        sout_etu = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant').order_by('-created_at')
     except Exception as e:
         pass
     
@@ -89,9 +89,9 @@ def blog_next(request):
     # * Fin gestion des utilisateurs
     
     
-    # récupérer tout les soutenances terminer
+    # récupérer tout les non soutenances terminer
     try:
-        sout = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant__id_filiere')
+        sout = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant__id_filiere').order_by('-created_at')
     except Exception as e:
         pass
     
@@ -115,7 +115,7 @@ def blog_past(request):
     
     # récupérer tout les soutenances terminer
     try:
-        sout_finish = Soutenance.objects.filter(is_finish=True).select_related('id_etudiant')
+        sout_finish = Soutenance.objects.filter(is_finish=True).select_related('id_etudiant').order_by('-created_at')
     except Exception as e:
         pass
     
@@ -150,14 +150,10 @@ class SoutDetail(DetailView):
 
         # Professeurs supervisant cette soutenance
         try:
-            context['superviseurs'] = soutenance.superviser_set.all()
+            context['superviseurs'] = soutenance.superviser_set.all().order_by('-created_at')
         except Exception as e:
             pass
         
-
-        # Images associées à cette soutenance
-        #context['soutenance_images'] = soutenance.soutenanceimage_set.all()
-
         # Images banniere
         try:
             context['soutenance_banniere'] = soutenance.soutenanceimage_set.filter(pour="banniere").first()
@@ -173,13 +169,13 @@ class SoutDetail(DetailView):
 
         # Appréciations des professeurs
         try :
-            context['appreciations'] = soutenance.apprecier_set.all()
+            context['appreciations'] = soutenance.apprecier_set.all().order_by('-create_at')
         except Exception as e:
             pass
 
         # Soutenances non terminées
         try:
-            context['soutenances_non_terminees'] = Soutenance.objects.filter(is_finish=False)
+            context['soutenances_non_terminees'] = Soutenance.objects.filter(is_finish=False).order_by('-created_at')
         except Exception as e:
             pass
         
@@ -213,7 +209,7 @@ class SoutDetailFinish(DetailView):
 
         # Professeurs supervisant cette soutenance
         try:
-            context['superviseurs'] = soutenance.superviser_set.all()
+            context['superviseurs'] = soutenance.superviser_set.all().order_by('-created_at')
         except Exception as e:
             pass
         
@@ -233,22 +229,22 @@ class SoutDetailFinish(DetailView):
         
 
         # Rapport lié à cette soutenance
-        try:
-            context['rapport'] = soutenance.rapport_set.first()
+        try: 
+            context['rapport'] = soutenance.rapport_set.last()
         except Exception as e:
             pass
         
 
         # Appréciations des professeurs
         try:
-            context['appreciations'] = soutenance.apprecier_set.all()
+            context['appreciations'] = soutenance.apprecier_set.all().order_by('-created_at')
         except Exception as e:
             pass
         
 
         # Soutenances non terminées
         try:
-            context['soutenances_non_terminees'] = Soutenance.objects.filter(is_finish=False)
+            context['soutenances_non_terminees'] = Soutenance.objects.filter(is_finish=False).order_by('-created_at')
         except Exception as e:
             pass
         
@@ -310,8 +306,7 @@ def contact(request):
                 sujet=form.cleaned_data['sujet'],
                 email_user=form.cleaned_data['email_user'],
                 message=form.cleaned_data['message'],
-            )
-            messages.success(request, 'Votre message a été envoyé avec succès !')
+            ) 
             form = MessageForm()  # Réinitialiser le formulaire après soumission
         else:
             messages.error(request, 'Veuillez corriger les erreurs dans le formulaire.')
@@ -352,7 +347,7 @@ def prof(request):
     
     # *Récupérer tout les prof
     try:
-        prof = Professeur.objects.all()
+        prof = Professeur.objects.all().order_by('-created_at')
     except Exception as e:
         pass
     
@@ -401,7 +396,7 @@ class CustomLoginView(View):
         return render(request, self.template_name, {'form': form})
 
 
-# Afficher l'interface de connexion des administrateurs
+# TODO:  Afficher l'interface de connexion des administrateurs
 class login_admin(View):
     template_name = 'session-admin/pages/login.html'
     success_url = reverse_lazy('admin-dashboard')  # Redirection après connexion réussie
@@ -436,7 +431,7 @@ class login_admin(View):
         return render(request, self.template_name, {'form': form})
 
 
-# Affiche le tableau de bord des administrateurs
+# TODO:  Affiche le tableau de bord des administrateurs
 def admin_dashboard(request):
     
     # * Début gestion des administrateur 
@@ -463,7 +458,7 @@ def admin_dashboard(request):
     
     # Récupérer toutes les soutenances non terminées avec leurs étudiants
     try:
-        sout_etu = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant')
+        sout_etu = Soutenance.objects.filter(is_finish=False).select_related('id_etudiant').order_by('-created_at')
     except Exception as e:
         pass
     
@@ -471,8 +466,103 @@ def admin_dashboard(request):
     return render(request, 'session-admin/dashboard.html', {'sout_finish': sout_finish, 'sout_unfinish': sout_unfinish, 'sout_etu': sout_etu, 'user': user})
 
 
-# Fonction pour gérer la déconnexion des administrateurs
+# TODO:  Fonction pour gérer la déconnexion des administrateurs
 def logout_admin_view(request):
     if 'user_id' in request.session:
         del request.session['user_id']  # Supprimer l'utilisateur de la session 
     return redirect('administrateur')
+
+
+# TODO: Fonction pour afficher le profil de l'admin
+def profil_admin(request):
+    
+    
+    # * Début gestion des administrateur 
+    user_id = request.session.get('user_id')
+    if not user_id: 
+        return redirect('login') 
+    # Récupérer l'administrateur connecté pour en suite le passer à la page via {'user': user}
+    user = administrateur.objects.get(id_admin=user_id)
+    # * Fin gestion des administrateur
+    
+    # *Gestion du formulaire
+    use = get_object_or_404(administrateur, id_admin=user_id)
+    if request.method == 'POST':
+        try:  
+            
+            use.nom_admin=request.POST.get('nom_user', use.nom_admin)
+            use.prenom_admin=request.POST.get('prenom_user', use.prenom_admin)
+            use.email=request.POST.get('email_user', use.email)
+            use.password=request.POST.get('password_user', use.password)
+            
+            # contrôle des champs vides 
+            if use.nom_admin == '':
+                use.nom_admin = user.nom_admin
+            if use.prenom_admin == '':
+                use.prenom_admin = user.prenom_admin
+            if use.email == '':
+                use.email = user.email
+            if use.password == '':
+                use.password = user.password
+            
+            use.save() 
+            
+            # Récupérer les informations mis à jour de l'admin 
+            user = administrateur.objects.get(id_admin=user_id)
+            
+            return redirect('profil_admin', {'user': user})  
+        except Exception as e:
+            return render(request, 'session-admin/profil.html', {'error': f"Erreur lors de la mise à jour : {str(e)}", 'user': user})
+        
+    
+    return render(request, 'session-admin/profil.html', {'user': user})
+
+
+# TODO: Fonction pour afficher le profil de l'utilisateur
+def user_profil(request):
+    
+    # * Début gestion des utilisateurs
+    user_id = request.session.get('user_id')
+    if not user_id: 
+        return redirect('login') 
+    # Récupérer l'utilisateur connecté pour en suite le passer à la page via {'user': user}
+    user = Utilisateur.objects.get(id_user=user_id)
+    # * Fin gestion des utilisateurs
+    
+    
+    # *Gestion du formulaire
+    use = get_object_or_404(Utilisateur, id_user=user_id)
+    if request.method == 'POST':
+        try:  
+            
+            use.nom_user=request.POST.get('nom_user', use.nom_user)
+            use.prenom_user=request.POST.get('prenom_user', use.prenom_user)
+            use.email=request.POST.get('email_user', use.email)
+            use.password=request.POST.get('password_user', use.password)
+            
+            #hacher le mot de passe
+            correct_password = use.password
+            hach_password = make_password(correct_password)
+            use.password = hach_password
+            
+            # contrôle des champs vides 
+            if use.nom_user == '':
+                use.nom_user = user.nom_user
+            if use.prenom_user == '':
+                use.prenom_user = user.prenom_user
+            if use.email == '':
+                use.email = user.email
+            if use.password == '':
+                use.password = user.password
+            
+            use.save() 
+            
+            # Récupérer les informations mis à jour de l'utilisateur 
+            user = Utilisateur.objects.get(id_user=user_id)
+            
+            return redirect('user_profil', {'user': user})  
+        except Exception as e:
+            return render(request, 'session-blog/user_profil.html', {'error': f"Erreur lors de la mise à jour : {str(e)}", 'user': user})
+        
+    
+    return render(request, 'session-blog/user_profil.html', {'user': user})

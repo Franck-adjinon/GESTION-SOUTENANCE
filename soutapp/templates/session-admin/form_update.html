@@ -1,0 +1,672 @@
+{% extends 'session-admin/base.html' %}
+{% load static %}
+{% block content %}  
+
+
+{% if view_name == 'update_superviser' %}   
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations</p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_sout" class="block text-sm font-medium text-gray-700">  Soutenance </label> 
+                            <select 
+                                disabled 
+                                name="id_sout" id="id_sout"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                                <option value="{{ superviseur.id_sout }}">{{ superviseur.id_sout.theme }}</option>  
+                            </select>
+                        </div>  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_prof" class="block text-sm font-medium text-gray-700"> Superviseur </label> 
+                            <select 
+                                disabled 
+                                name="id_prof" id="id_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                                <option value="{{ superviseur.id_prof }}">{{ superviseur.id_prof.nom_prof }} {{ superviseur.id_prof.prenom_prof }}</option> 
+                            </select>
+                        </div> 
+                        <div class="sm:col-span-4 mb-6">
+                            <label class="block text-sm font-medium text-gray-700"> Rôle - {{ superviseur.role }} </label> 
+                        </div> 
+                        <div class="sm:col-span-4 mb-6">
+                            <label for="role" class="block text-sm font-medium text-gray-700"> Modifier Rôle </label>
+                            <input 
+                                id="role" 
+                                name="role" 
+                                type="text" 
+                                autocomplete="role"
+                                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                placeholder="" 
+                            />
+                        </div> 
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_superviser' superviseur.id %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+</form>
+{% elif view_name == 'update_apprecier' %}     
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations</p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_sout" class="block text-sm font-medium text-gray-700">  Soutenance </label> 
+                            <select 
+                                disabled 
+                                name="id_sout" id="id_sout"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                                <option value="{{ apprecier.id_sout }}">{{ apprecier.id_sout.theme }}</option>  
+                            </select>
+                        </div>  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_prof" class="block text-sm font-medium text-gray-700"> Superviseur </label> 
+                            <select 
+                                disabled 
+                                name="id_prof" id="id_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                                <option value="{{ apprecier.id_prof }}">{{ apprecier.id_prof.nom_prof }} {{ apprecier.id_prof.prenom_prof }}</option> 
+                            </select>
+                        </div> 
+                        <div class="sm:col-span-4 mb-6">
+                            <label class="block text-sm font-medium text-gray-700"> Appréciation - {{ apprecier.appreciation }} </label> 
+                        </div> 
+                        <div class="sm:col-span-4 mb-6">
+                            <label for="appreciation" class="block text-sm font-medium text-gray-700"> Modifier appréciation </label>
+                            <input 
+                                id="appreciation" 
+                                name="appreciation" 
+                                type="text" 
+                                autocomplete="appreciation"
+                                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                placeholder="" 
+                            />
+                        </div> 
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_apprecier' apprecier.id %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+
+</form>
+{% elif view_name == 'update_LienSociale' %} 
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations </p>
+                <p class="mt-1 text-sm text-gray-500">{{ lien.id_prof.nom_prof }} {{ lien.id_prof.prenom_prof }} {{ Lien.designation }} {{ Lien.lien }}</p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="designation" class="block text-sm font-medium text-gray-700">  Designation </label> 
+                            <input  
+                                name="designation" id="designation"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                        
+                        </div>  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="lien" class="block text-sm font-medium text-gray-700"> Lien </label> 
+                            <input  
+                                name="lien" id="lien"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_LienSociale' lien.id_lien %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+
+</form>
+{% elif view_name == 'update_photo'  %}   
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST"  enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations </p>
+                <p class="mt-1 text-sm text-gray-500">{{ pht.titre }} </p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="titre" class="block text-sm font-medium text-gray-700">  Titre </label> 
+                            <input  
+                                name="titre" id="titre"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                        
+                        </div>  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="description" class="block text-sm font-medium text-gray-700"> Description </label> 
+                            <input  
+                                name="description" id="description"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+
+                        <div class="sm:col-span-6">
+                            <div
+                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                <div class="space-y-1 text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor"
+                                        fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                        <path
+                                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                            stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="flex text-sm text-gray-600">
+                                        <label for="image"
+                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+
+                                            <input id="image" name="image" type="file"
+                                                class="sr-only">
+                                        </label>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_photo' pht.id_photo %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+
+</form>
+{% elif view_name == 'update_professeurs'  %}  
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST"  enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations </p>
+                <p class="mt-1 text-sm text-gray-500">{{ prof.nom_prof }} {{ prof.prenom_prof }} {{ prof.specialite_prof }} </p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="nom_prof" class="block text-sm font-medium text-gray-700">  Nom </label> 
+                            <input  
+                                name="nom_prof" id="nom_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                        
+                        </div>  
+
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="prenom_prof" class="block text-sm font-medium text-gray-700"> Prénom </label> 
+                            <input  
+                                name="prenom_prof" id="prenom_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="specialite_prof" class="block text-sm font-medium text-gray-700"> Spécialité </label> 
+                            <input  
+                                name="specialite_prof" id="specialite_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="adresse_prof" class="block text-sm font-medium text-gray-700"> Adresse </label> 
+                            <input  
+                                name="adresse_prof" id="adresse_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="telephone_prof" class="block text-sm font-medium text-gray-700"> Contact </label> 
+                            <input  
+                                name="telephone_prof" id="telephone_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="email_prof" class="block text-sm font-medium text-gray-700"> Email </label> 
+                            <input  
+                                name="email_prof" id="email_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+
+                        <div class="sm:col-span-6">
+                            <div
+                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                <div class="space-y-1 text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor"
+                                        fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                        <path
+                                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                            stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="flex text-sm text-gray-600">
+                                        <label for="image_prof"
+                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+
+                                            <input id="image_prof" name="image_prof" type="file"
+                                                class="sr-only">
+                                        </label>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_professeurs' prof.id_prof %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+
+</form>
+{% elif view_name == 'update_filiere'  %}  
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST"  enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations </p>
+                <p class="mt-1 text-sm text-gray-500">{{ fil.designation }} </p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">   
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="designation" class="block text-sm font-medium text-gray-700"> Designation </label> 
+                            <input  
+                                name="designation" id="designation"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>   
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_filiere' fil.id_filiere %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+
+</form>
+{% elif view_name == 'update_etudiant'  %} 
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST"  enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations </p>
+                <p class="mt-1 text-sm text-gray-500">{{ Etu.nom_etu }} {{ Etu.prenom_etu }}  </p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="nom_etu" class="block text-sm font-medium text-gray-700">  Nom </label> 
+                            <input  
+                                name="nom_etu" id="nom_etu"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                        
+                        </div>  
+
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="prenom_etu" class="block text-sm font-medium text-gray-700"> Prénom </label> 
+                            <input  
+                                name="prenom_etu" id="prenom_etu"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="email_etu" class="block text-sm font-medium text-gray-700"> Email </label> 
+                            <input  
+                                name="email_etu" id="email_etu" type=email
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="telephone_etu" class="block text-sm font-medium text-gray-700"> Contact </label> 
+                            <input  
+                                name="telephone_etu" id="telephone_etu"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_filiere" class="block text-sm font-medium text-gray-700"> Filière </label> 
+                            <select  
+                                name="id_filiere" id="id_filiere"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                                <option >  </option>
+                                {% for fil in filieres %}
+                                    <option value="{{ fil.id_filiere }}">{{ fil.designation }}</option>  
+                                {% endfor %} 
+                            </select>
+                        </div>   
+
+                        <div class="sm:col-span-6">
+                            <div
+                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                <div class="space-y-1 text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor"
+                                        fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                        <path
+                                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                            stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="flex text-sm text-gray-600">
+                                        <label for="image_etu"
+                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+
+                                            <input id="image_etu" name="image_etu" type="file"
+                                                class="sr-only">
+                                        </label>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_etudiant' Etu.id_etudiant %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+
+</form>
+{% elif view_name == 'update_soutenance'  %}  
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST" >
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations </p>
+                <p class="mt-1 text-sm text-gray-500">{{ sout.theme }} </p>
+                <p class="mt-1 text-sm text-gray-500">{{ sout.id_etudiant.nom_etu }} {{ sout.id_etudiant.prenom_etu }}  </p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="theme" class="block text-sm font-medium text-gray-700">  Theme </label> 
+                            <input  
+                                name="theme" id="theme"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                        
+                        </div>  
+
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="Heure_deb" class="block text-sm font-medium text-gray-700"> Heure Début </label> 
+                            <input  
+                                name="Heure_deb" id="Heure_deb" type="time"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="Heure_fin" class="block text-sm font-medium text-gray-700"> Heure Fin </label> 
+                            <input  
+                                name="Heure_fin" id="Heure_fin" type="time"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="Date_sout" class="block text-sm font-medium text-gray-700"> Date Soutenance </label> 
+                            <input  
+                                name="Date_sout" id="Date_sout" type=date
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="lieu" class="block text-sm font-medium text-gray-700"> Lieu </label> 
+                            <input  
+                                name="lieu" id="lieu" type=text
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="is_finish" class="block text-sm font-medium text-gray-700"> Fini ? </label> 
+                            <input id="is_finish" name="is_finish" type="checkbox"
+                                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_etudiant" class="block text-sm font-medium text-gray-700"> Etudiant </label> 
+                            <select  
+                                name="id_etudiant" id="id_etudiant"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                                <option >  </option>
+                                {% for etu in etudiant %}
+                                    <option value="{{ etu.id_etudiant }}">{{ etu.nom_etu }} {{ etu.prenom_etu }}</option>  
+                                {% endfor %} 
+                            </select>
+                        </div>    
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_soutenance' sout.id_sout %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+
+</form>
+{% elif view_name == 'update_soutenanceImage'  %} 
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST">
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations</p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_sout" class="block text-sm font-medium text-gray-700">  Soutenance </label> 
+                            <select 
+                                disabled 
+                                name="id_sout" id="id_sout"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                                <option value="{{ sout.id_sout }}">{{ sout.id_sout.theme }}</option>  
+                            </select>
+                        </div>  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_prof" class="block text-sm font-medium text-gray-700"> Photo </label> 
+                            <select 
+                                disabled 
+                                name="id_prof" id="id_prof"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                                <option value="{{ sout.id_photo }}">{{ sout.id_photo.titre }}</option> 
+                            </select>
+                        </div> 
+                        <div class="sm:col-span-4 mb-6">
+                            <label class="block text-sm font-medium text-gray-700"> Pour - {{ sout.pour }} </label> 
+                        </div> 
+                        <div class="sm:col-span-4 mb-6">
+                            <label for="pour" class="block text-sm font-medium text-gray-700"> Modifier fonction </label>
+                            <input 
+                                id="pour" 
+                                name="pour" 
+                                type="text" 
+                                autocomplete="pour"
+                                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                placeholder="" 
+                            />
+                        </div> 
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_soutenanceImage' sout.id %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+</form>
+{% elif view_name == 'update_rapports'  %} 
+<form class="space-y-8 container m-auto divide-y divide-gray-200" method="POST" >
+    {% csrf_token %}
+    <div class="space-y-8 divide-y divide-gray-200">
+        <div class="pt-8">
+            <div> 
+                <p class="mt-1 text-sm text-gray-500">Modifier les informations </p>
+                <p class="mt-1 text-sm text-gray-500">{{ rap.id_sout.theme }} </p>
+                <p class="mt-1 text-sm text-gray-500">{{ rap.id_sout.id_etudiant.nom_etu }} {{ rap.id_sout.id_etudiant.prenom_etu }}</p>
+            </div>
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">  
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="titre" class="block text-sm font-medium text-gray-700">  Titre </label> 
+                            <input  
+                                placeholder="{{ rap.titre }}"
+                                name="titre" id="titre"
+                                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"> 
+                        
+                        </div>  
+
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="sommaire" class="block text-sm font-medium text-gray-700"> Sommaire </label> 
+                            <textarea    
+                                name="sommaire" id="sommaire"  rows="12" 
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">                               
+                            </textarea> 
+                        </div>  
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="contenu" class="block text-sm font-medium text-gray-700"> Contenu </label> 
+                            <textarea    
+                                name="contenu" id="contenu"  rows="12" 
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            </textarea>                               
+                            
+                        </div>     
+                        
+                        <div class="sm:col-span-3 mb-6">
+                            <label for="id_sout" class="block text-sm font-medium text-gray-700"> Soutenance </label> 
+                            <select  
+                                name="id_sout" id="id_sout"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"> 
+                                
+                                <option value="{{ rap.id_sout }}" > {{ rap.id_sout.theme }} </option> 
+                                {% for st in souts %}
+                                    <option value="{{ st.id_sout }}">{{ st.theme }} </option>  
+                                {% endfor %} 
+                            </select>
+                        </div>    
+                    </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end"> 
+            <button 
+                href="{% url 'update_rapports' rap.id_rapport %}"
+                type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Mettre à jour
+            </button>
+        </div>
+    </div>
+
+</form>
+{% endif %}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

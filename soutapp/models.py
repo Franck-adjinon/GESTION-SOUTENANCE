@@ -46,6 +46,7 @@ class LienSociale(models.Model):
     def __str__(self):
         return self.designation
 
+
 class Photo(models.Model):
     id_photo = models.AutoField(primary_key=True)
     titre = models.CharField(max_length=200)
@@ -74,6 +75,7 @@ class Photo(models.Model):
     def __str__(self):
         return self.titre
 
+
 class Message(models.Model):
     id_message = models.AutoField(primary_key=True)
     status = models.BooleanField(default=False)
@@ -85,6 +87,7 @@ class Message(models.Model):
     def __str__(self):
         return self.sujet
 
+
 class Filiere(models.Model):
     id_filiere = models.AutoField(primary_key=True)
     designation = models.CharField(max_length=100)
@@ -92,6 +95,7 @@ class Filiere(models.Model):
 
     def __str__(self):
         return self.designation
+
 
 class Etudiant(models.Model):
     id_etudiant = models.AutoField(primary_key=True)
@@ -124,6 +128,7 @@ class Etudiant(models.Model):
     def __str__(self):
         return f"{self.nom_etu} {self.prenom_etu}"
 
+
 class Soutenance(models.Model):
     id_sout = models.AutoField(primary_key=True)
     theme = models.CharField(max_length=255)
@@ -138,6 +143,7 @@ class Soutenance(models.Model):
     def __str__(self):
         return self.theme
 
+
 class Rapport(models.Model):
     id_rapport = models.AutoField(primary_key=True)
     titre = models.CharField(max_length=255)
@@ -148,6 +154,7 @@ class Rapport(models.Model):
 
     def __str__(self):
         return self.titre
+
 
 class Superviser(models.Model):
     id_sout = models.ForeignKey(Soutenance, on_delete=models.CASCADE)
@@ -161,6 +168,7 @@ class Superviser(models.Model):
     def __str__(self):
         return f"{self.id_sout} - {self.id_prof}"
 
+
 class Apprecier(models.Model):
     id_sout = models.ForeignKey(Soutenance, on_delete=models.CASCADE)
     id_prof = models.ForeignKey(Professeur, on_delete=models.CASCADE)
@@ -172,6 +180,7 @@ class Apprecier(models.Model):
 
     def __str__(self):
         return f"{self.id_sout} - {self.id_prof}"
+
 
 class SoutenanceImage(models.Model):
     id_sout = models.ForeignKey(Soutenance, on_delete=models.CASCADE)
